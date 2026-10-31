@@ -1,0 +1,44 @@
+.abanico-cromos {
+  position: relative;
+  height: 430px;
+  width: 100%;
+  max-width: 560px;
+}
+.etiqueta-cromos {
+  position: absolute;
+  left: 22%;
+  top: 0;
+  padding: 7px 14px;
+  background: #ffd642;
+  color: #191130;
+  border: 2px solid #191130;
+  border-radius: 99px;
+  box-shadow: 2px 2px 0 #191130;
+  transform: rotate(-6deg);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 1050px) {
+  .abanico-cromos {
+    height: 350px;
+  }
+}
+@media (max-width: 640px) {
+  .abanico-cromos {
+    height: 320px;
+    max-width: 380px;
+  }
+}
+@media (max-width: 640px) {
+  .etiqueta-cromos {
+    left: 15%;
+    font-size: 9px;
+  }
+}
+@media (max-width: 640px) {
+  .abanico-cromos {
+    display: none;
+  }
+}

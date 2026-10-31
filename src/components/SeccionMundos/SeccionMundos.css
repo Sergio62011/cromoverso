@@ -1,0 +1,48 @@
+.seccion-mundos {
+  padding: 56px 0 32px;
+}
+.seccion-mundos h2 {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+.seccion-mundos p {
+  color: var(--suave);
+  font-size: 16px;
+}
+.mundos-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 1050px) {
+  .mundos-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .seccion-mundos {
+    padding: 32px 0;
+  }
+}
+@media (max-width: 640px) {
+  .seccion-mundos .titulo-seccion {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 640px) {
+  .seccion-mundos h2 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 640px) {
+  .seccion-mundos p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .mundos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}

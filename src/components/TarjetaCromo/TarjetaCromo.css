@@ -1,0 +1,123 @@
+.cromo {
+  display: block;
+  position: absolute;
+  width: 43%;
+  padding: 7px;
+  border: 3px solid #191130;
+  border-radius: 18px;
+  background: #fff;
+  color: #191130;
+  box-shadow: 5px 5px 0 #191130;
+  text-align: left;
+  top: 70px;
+  transition: transform 180ms ease;
+}
+.cromo .retrato-heroe {
+  width: 100%;
+  display: block;
+  border: 2px solid #191130;
+  border-radius: 12px;
+}
+.cromo b {
+  display: block;
+  font:
+    800 20px "Syne",
+    sans-serif;
+  margin: 6px 2px 2px;
+}
+.cromo small {
+  display: block;
+  font-size: 11px;
+  margin: 0 2px 4px;
+}
+.cromo-numero {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.1;
+  padding: 3px 7px;
+  background: #fff;
+  border: 2px solid #191130;
+  border-radius: 99px;
+}
+.cromo-rareza {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: #986100;
+  z-index: 1;
+  background: #fff;
+  border: 2px solid #191130;
+  border-radius: 99px;
+  display: grid;
+  place-items: center;
+}
+.cromo-rareza svg {
+  width: 15px;
+  height: 20px;
+}
+.cromo-041 {
+  left: 0;
+  transform: rotate(-9deg);
+}
+.cromo-081 {
+  right: 0;
+  transform: rotate(9deg);
+}
+.cromo-001 {
+  left: 29%;
+  top: 44px;
+}
+.cromo:hover {
+  transform: translateY(-12px);
+  z-index: 2;
+}
+@media (max-width: 1050px) {
+  .cromo b {
+    font-size: 16px;
+  }
+}
+@media (max-width: 1050px) {
+  .cromo small {
+    font-size: 9px;
+  }
+}
+@media (max-width: 640px) {
+  .cromo {
+    padding: 5px;
+    border-radius: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .cromo-numero {
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+}
+@media (max-width: 640px) {
+  .cromo-rareza {
+    right: 12px;
+    top: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .cromo-rareza svg {
+    width: 12px;
+    height: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .cromo b {
+    font-size: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .cromo small {
+    font-size: 8px;
+  }
+}

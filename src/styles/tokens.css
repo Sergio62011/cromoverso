@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap");
+
+:root {
+  --fondo: #fff9eb;
+  --superficie: #fff;
+  --tinta: #191130;
+  --suave: #504765;
+  --acento: #713bfa;
+  --sobre-acento: #fff;
+  --borde: #191130;
+  --fuente-texto: "DM Sans", sans-serif;
+  --fuente-titulos: "Syne", sans-serif;
+  --color-foco: #713bfa;
+  --espacio-1: 0.5rem;
+  --espacio-2: 1rem;
+  --espacio-3: 1.5rem;
+  --espacio-4: 2rem;
+  --radio: 0.75rem;
+  --ancho-contenido: 1280px;
+}

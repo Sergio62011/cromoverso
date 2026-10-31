@@ -1,0 +1,135 @@
+.hero-cromoverso {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: #191130;
+}
+.hero-cromoverso::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 26%;
+  background: #35206c;
+  clip-path: polygon(
+    4% 0,
+    35% 6%,
+    31% 0,
+    100% 0,
+    100% 100%,
+    94% 93%,
+    96% 100%,
+    37% 100%,
+    38% 93%,
+    32% 100%,
+    23% 100%,
+    30% 80%,
+    0 100%,
+    25% 64%,
+    3% 68%,
+    22% 43%,
+    0 34%,
+    22% 24%
+  );
+}
+.interior-cromoverso {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  min-height: 558px;
+  align-items: center;
+  gap: 64px;
+  position: relative;
+}
+.texto-cromoverso h1 {
+  font-size: clamp(40px, 4.2vw, 60px);
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  margin-bottom: 28px;
+  max-width: 650px;
+  text-wrap: initial;
+}
+.texto-cromoverso .primario {
+  background: #ffd642;
+  color: #191130;
+  border-color: #ffd642;
+}
+.texto-cromoverso .secundario {
+  background: #fff;
+  color: #191130;
+}
+.texto-cromoverso .boton-home {
+  min-height: 56px;
+  padding: 14px 24px;
+}
+.texto-cromoverso > p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  font-size: 14px;
+  color: #d0c7e1;
+}
+.texto-cromoverso > p svg {
+  color: #ffd642;
+  flex-shrink: 0;
+  width: 18px;
+}
+@media (max-width: 1050px) {
+  .interior-cromoverso {
+    gap: 32px;
+  }
+}
+@media (max-width: 1050px) {
+  .texto-cromoverso h1 {
+    font-size: 44px;
+  }
+}
+@media (max-width: 640px) {
+  .interior-cromoverso {
+    display: flex;
+    flex-direction: column;
+    padding-top: 36px;
+    padding-bottom: 24px;
+    gap: 32px;
+  }
+}
+@media (max-width: 640px) {
+  .texto-cromoverso h1 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 640px) {
+  .texto-cromoverso .grupo-botones {
+    flex-direction: column;
+  }
+}
+@media (max-width: 640px) {
+  .texto-cromoverso .boton-home {
+    min-height: 48px;
+  }
+}
+@media (max-width: 640px) {
+  .texto-cromoverso > p {
+    font-size: 12px;
+  }
+}
+
+.texto-cromoverso > .descripcion-cromoverso-movil {
+  display: none;
+}
+@media (max-width: 640px) {
+  .texto-cromoverso > .descripcion-cromoverso-movil {
+    display: block;
+    margin: 0 0 20px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .texto-cromoverso > p:not(.descripcion-cromoverso-movil) {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .interior-cromoverso {
+    min-height: 0;
+    padding-bottom: 36px;
+  }
+}
