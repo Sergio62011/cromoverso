@@ -3,7 +3,7 @@
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  font-family: "Syne", sans-serif;
+  font-family: var(--fuente-unbounded);
   font-size: 22px;
   font-weight: 700;
 }
@@ -12,8 +12,8 @@
   place-items: center;
   width: 36px;
   height: 36px;
-  background: var(--acento);
-  color: var(--sobre-acento);
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
   border-radius: 50%;
 }
 .emblema svg {

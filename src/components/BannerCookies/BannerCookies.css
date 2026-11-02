@@ -7,10 +7,10 @@
   max-width: 760px;
   margin-inline: auto;
   padding: 24px;
-  border: 2px solid var(--tinta);
-  border-radius: var(--radio);
-  background: var(--superficie);
-  color: var(--tinta);
+  border: 2px solid var(--texto-principal);
+  border-radius: var(--radio-m);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
   max-height: calc(100dvh - 32px);
   overflow: auto;
 }

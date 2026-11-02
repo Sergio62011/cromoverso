@@ -6,7 +6,7 @@
   margin-bottom: 4px;
 }
 .seccion-mundos p {
-  color: var(--suave);
+  color: var(--texto-secundario);
   font-size: 16px;
 }
 .mundos-grid {

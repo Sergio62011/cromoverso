@@ -1,4 +1,5 @@
 import "./Marca.css";
+import IconoMundo from "../IconoMundo/IconoMundo.jsx";
 export default function Marca({ nombre, tipo }) {
   return (
     <a className="marca-home" href="/" aria-label={`${nombre}, inicio`}>
@@ -14,12 +15,7 @@ export default function Marca({ nombre, tipo }) {
             />
           </svg>
         ) : tipo === "cromoverso" ? (
-          <svg viewBox="0 0 24 24">
-            <path
-              d="m12 2 3 6 7 1-5 5 1 8-6-4-6 4 1-8-5-5 7-1Z"
-              fill="currentColor"
-            />
-          </svg>
+          <IconoMundo nombre="logo" />
         ) : (
           <svg
             viewBox="0 0 32 32"

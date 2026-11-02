@@ -3,10 +3,10 @@
   max-height: calc(100dvh - 32px);
   overflow: auto;
   padding: 28px;
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  color: var(--tinta);
-  background: var(--superficie);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-m);
+  color: var(--texto-principal);
+  background: var(--fondo-superficie);
 }
 .preferencias-dialogo::backdrop {
   background: rgb(0 0 0 / 65%);
@@ -26,14 +26,14 @@
   gap: 16px;
   margin-block: 24px;
   padding: 16px;
-  border: 1px solid var(--borde);
+  border: 1px solid var(--borde-fuerte);
   border-radius: 8px;
   cursor: pointer;
 }
 .opcion-cookie input {
   width: 24px;
   height: 24px;
-  accent-color: var(--acento);
+  accent-color: var(--marca-primario);
   flex-shrink: 0;
 }
 .opcion-cookie span span {

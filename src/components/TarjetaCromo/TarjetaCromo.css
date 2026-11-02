@@ -21,8 +21,7 @@
 .cromo b {
   display: block;
   font:
-    800 20px "Syne",
-    sans-serif;
+    800 20px var(--fuente-unbounded);
   margin: 6px 2px 2px;
 }
 .cromo small {
@@ -54,6 +53,21 @@
   border-radius: 99px;
   display: grid;
   place-items: center;
+}
+.cromo-rareza--comun {
+  color: var(--rareza-comun);
+}
+
+.cromo-rareza--rara {
+  color: var(--rareza-rara);
+}
+
+.cromo-rareza--epica {
+  color: var(--rareza-epica);
+}
+
+.cromo-rareza--legendaria {
+  color: var(--rareza-legendaria);
 }
 .cromo-rareza svg {
   width: 15px;
@@ -106,7 +120,22 @@
   }
 }
 @media (max-width: 640px) {
-  .cromo-rareza svg {
+  .cromo-rareza--comun {
+  color: var(--rareza-comun);
+}
+
+.cromo-rareza--rara {
+  color: var(--rareza-rara);
+}
+
+.cromo-rareza--epica {
+  color: var(--rareza-epica);
+}
+
+.cromo-rareza--legendaria {
+  color: var(--rareza-legendaria);
+}
+.cromo-rareza svg {
     width: 12px;
     height: 16px;
   }
