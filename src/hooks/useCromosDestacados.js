@@ -3,45 +3,70 @@ import { useRecurso } from "./useRecurso.js";
 import { heroes as heroesRespaldo } from "../data/catalogo.js";
 
 const DESTACADOS = [
-  { mundo: "bosque", numero: 41, respaldo: 0 },
-  { mundo: "orbita", numero: 81, respaldo: 1 },
-  { mundo: "neon", numero: 1, respaldo: 2 },
+  { id: "CV-041", mundo: "bosque", respaldo: 0 },
+  { id: "CV-081", mundo: "orbita", respaldo: 1 },
+  { id: "CV-001", mundo: "neon", respaldo: 2 },
 ];
 
-function obtenerMundo(respuesta) {
-  return respuesta?.mundo ?? respuesta?.datos?.mundo ?? respuesta?.datos ?? respuesta;
+function extraerCromo(respuesta) {
+  const datos =
+    respuesta?.cromo ??
+    respuesta?.datos?.cromo ??
+    respuesta?.data?.cromo ??
+    respuesta?.datos?.data?.cromo ??
+    respuesta?.datos ??
+    respuesta?.data ??
+    respuesta;
+  return Array.isArray(datos) ? datos[0] : datos;
 }
 
-export function useCromosDestacados() {
-  const bosque = useRecurso("/mundos/bosque");
-  const orbita = useRecurso("/mundos/orbita");
-  const neon = useRecurso("/mundos/neon");
+function textoMundoRespaldo(mundo) {
+  return {
+    bosque: "Bosque Eterno",
+    orbita: "Estación Órbita",
+    neon: "Ciudad Neón",
+  }[mundo];
+}
+
+export function useCromosDestacados(mundos = []) {
+  const cromo041 = useRecurso("/cromos/CV-041");
+  const cromo081 = useRecurso("/cromos/CV-081");
+  const cromo001 = useRecurso("/cromos/CV-001");
+  const respuestas = [cromo041.datos, cromo081.datos, cromo001.datos];
+
   const cromos = useMemo(
     () =>
-      DESTACADOS.map(({ mundo, numero, respaldo }, indice) => {
-        const respuestas = [bosque.datos, orbita.datos, neon.datos];
-        const datos = obtenerMundo(respuestas[indice]);
-        const cromo = datos?.cromos?.find(
-          (item) => Number(item.numero) === numero,
-        );
-        return cromo ?? {
-          ...heroesRespaldo[respaldo],
-          mundo,
-          mundoNombre:
-            mundo === "bosque"
-              ? "Bosque Eterno"
-              : mundo === "orbita"
-                ? "Estación Órbita"
-                : "Ciudad Neón",
-          holografico: mundo === "neon",
+      DESTACADOS.map(({ id, mundo: mundoRespaldo, respaldo }, indice) => {
+        const cromo = extraerCromo(respuestas[indice]);
+        if (!cromo?.id) {
+          return {
+            ...heroesRespaldo[respaldo],
+            id,
+            mundo: mundoRespaldo,
+            mundoNombre: textoMundoRespaldo(mundoRespaldo),
+            holografico: mundoRespaldo === "neon",
+          };
+        }
+
+        const idMundo =
+          typeof cromo.mundo === "object" ? cromo.mundo.id : cromo.mundo;
+        const mundo =
+          mundos.find((item) => item.id === idMundo) ??
+          mundos.find((item) => item.id === mundoRespaldo);
+
+        return {
+          ...cromo,
+          id: cromo.id ?? id,
+          mundo: idMundo ?? mundoRespaldo,
+          mundoNombre: cromo.mundoNombre ?? mundo?.nombre ?? textoMundoRespaldo(mundoRespaldo),
         };
       }),
-    [bosque.datos, orbita.datos, neon.datos],
+    [cromo041.datos, cromo081.datos, cromo001.datos, mundos],
   );
 
   return {
     cromos,
-    cargando: bosque.cargando || orbita.cargando || neon.cargando,
-    error: bosque.error || orbita.error || neon.error,
+    cargando: cromo041.cargando || cromo081.cargando || cromo001.cargando,
+    error: cromo041.error || cromo081.error || cromo001.error,
   };
 }

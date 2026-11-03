@@ -15,7 +15,7 @@ export default function Home() {
   const { idioma } = usePreferencias();
   const { textos } = useTextos(idioma);
   const { mundos } = useMundos();
-  const { cromos: heroes } = useCromosDestacados();
+  const { cromos: heroes } = useCromosDestacados(mundos);
   const en = idioma === "en";
   const leer = (clave, respaldo) => textos[clave] || respaldo;
   const { detalle, setDetalle, abrirCuenta } = useDetalle(textos);
