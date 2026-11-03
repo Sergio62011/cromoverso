@@ -36,10 +36,10 @@
   background: linear-gradient(
     125deg,
     transparent 12%,
-    rgb(255 255 255 / 5%) 30%,
-    rgb(255 255 255 / 28%) 46%,
-    rgb(255 61 196 / 12%) 54%,
-    rgb(88 233 255 / 16%) 69%,
+    color-mix(in srgb, var(--texto-inverso) 5%, transparent) 30%,
+    color-mix(in srgb, var(--texto-inverso) 28%, transparent) 46%,
+    color-mix(in srgb, var(--marca-rosa) 12%, transparent) 54%,
+    color-mix(in srgb, var(--mundo-orbita) 16%, transparent) 69%,
     transparent 88%
   );
   opacity: 0.38;

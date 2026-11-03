@@ -204,13 +204,14 @@
   object-fit: cover;
 }
 .catalogo-grid .cromo b {
-  flex: 0 0 1.35em;
+  flex: 0 0 auto;
+  min-height: 1.35em;
   margin: 7px 2px 0;
-  overflow: hidden;
+  overflow: visible;
   font-size: calc(16px * var(--escala-texto, 1));
   line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .catalogo-grid .cromo small {
   flex: 0 0 1.25em;
@@ -498,10 +499,13 @@
     aspect-ratio: 5 / 6;
   }
   .catalogo-grid .cromo b {
-    flex-basis: 1.3em;
+    flex-basis: auto;
+    min-height: 1.3em;
     margin: 5px 1px 0;
     font-size: calc(11px * var(--escala-texto, 1));
     line-height: 1.3;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   .catalogo-grid .cromo small {
     flex-basis: 1.2em;
