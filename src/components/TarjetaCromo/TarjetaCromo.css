@@ -3,11 +3,11 @@
   position: absolute;
   width: 43%;
   padding: 7px;
-  border: 3px solid #191130;
+  border: 3px solid var(--borde-fuerte);
   border-radius: 18px;
-  background: #fff;
-  color: #191130;
-  box-shadow: 5px 5px 0 #191130;
+  background: var(--fondo-superficie);
+  color: var(--borde-fuerte);
+  box-shadow: var(--sombra-pop);
   text-align: left;
   top: 70px;
   transition: transform 180ms ease;
@@ -15,18 +15,58 @@
 .cromo .retrato-heroe {
   width: 100%;
   display: block;
-  border: 2px solid #191130;
+  border: 2px solid var(--borde-fuerte);
   border-radius: 12px;
+}
+.cromo-ilustracion {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 2px solid var(--borde-fuerte);
+  border-radius: 12px;
+}
+.cromo .cromo-ilustracion .retrato-heroe {
+  border: 0;
+  border-radius: 0;
+}
+.cromo-ilustracion--holografica::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    transparent 12%,
+    rgb(255 255 255 / 5%) 30%,
+    rgb(255 255 255 / 28%) 46%,
+    rgb(255 61 196 / 12%) 54%,
+    rgb(88 233 255 / 16%) 69%,
+    transparent 88%
+  );
+  opacity: 0.38;
+  background-size: 240% 240%;
+  content: "";
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: reflejo-holografico 3.6s ease-in-out infinite alternate;
+}
+@keyframes reflejo-holografico {
+  from { background-position: 100% 0; }
+  to { background-position: 0 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cromo-ilustracion--holografica::after {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }
 .cromo b {
   display: block;
-  font:
-    800 20px var(--fuente-unbounded);
+  font: 800 calc(20px * var(--escala-texto, 1)) var(--fuente-unbounded);
   margin: 6px 2px 2px;
 }
 .cromo small {
   display: block;
-  font-size: 11px;
+  font-size: calc(11px * var(--escala-texto, 1));
   margin: 0 2px 4px;
 }
 .cromo-numero {
@@ -35,21 +75,21 @@
   left: 16px;
   z-index: 1;
   font-weight: 800;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   line-height: 1.1;
   padding: 3px 7px;
-  background: #fff;
-  border: 2px solid #191130;
+  background: var(--fondo-superficie);
+  border: 2px solid var(--borde-fuerte);
   border-radius: 99px;
 }
 .cromo-rareza {
   position: absolute;
   top: 18px;
   right: 20px;
-  color: #986100;
+  color: var(--rareza-legendaria);
   z-index: 1;
-  background: #fff;
-  border: 2px solid #191130;
+  background: var(--fondo-superficie);
+  border: 2px solid var(--borde-fuerte);
   border-radius: 99px;
   display: grid;
   place-items: center;
@@ -91,12 +131,12 @@
 }
 @media (max-width: 1050px) {
   .cromo b {
-    font-size: 16px;
+    font-size: calc(16px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 1050px) {
   .cromo small {
-    font-size: 9px;
+    font-size: calc(9px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
@@ -109,7 +149,7 @@
   .cromo-numero {
     top: 12px;
     left: 12px;
-    font-size: 10px;
+    font-size: calc(10px * var(--escala-texto, 1));
     padding: 2px 4px;
   }
 }
@@ -142,11 +182,11 @@
 }
 @media (max-width: 640px) {
   .cromo b {
-    font-size: 14px;
+    font-size: calc(14px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
   .cromo small {
-    font-size: 8px;
+    font-size: calc(8px * var(--escala-texto, 1));
   }
 }

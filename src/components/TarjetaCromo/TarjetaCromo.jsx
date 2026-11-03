@@ -19,19 +19,35 @@ const RAREZAS = {
   legendaria: { es: "Legendaria", en: "Legendary" },
 };
 
-export default function TarjetaCromo({ heroe, mundo, onClick, en = false }) {
+export default function TarjetaCromo({
+  heroe,
+  mundo,
+  onClick,
+  en = false,
+  textos = {},
+}) {
   const rareza = RAREZAS[heroe.rareza] ? heroe.rareza : "comun";
-  const etiquetaRareza = RAREZAS[rareza][en ? "en" : "es"];
+  const nombreRareza = `rareza${rareza.charAt(0).toUpperCase()}${rareza.slice(1)}`;
+  const etiquetaRareza =
+    textos[nombreRareza] || RAREZAS[rareza][en ? "en" : "es"];
   const tipo = TIPOS[heroe.tipo] || TIPOS.heroe;
+  const nombreTipo = `tipo${(heroe.tipo || "heroe").charAt(0).toUpperCase()}${(heroe.tipo || "heroe").slice(1)}`;
   const claveCiudad =
     mundo?.slug ||
     mundo?.codigo ||
     (mundo?.nombre?.toLowerCase().includes("neón") ? "neon" : null);
   const nombreMundo = CIUDAD[claveCiudad]?.[en ? "en" : "es"] || mundo?.nombre;
+  const numero = String(heroe.numero).padStart(3, "0");
+  const etiquetaTipo = textos[nombreTipo] || tipo[en ? "en" : "es"];
+  const Elemento = onClick ? "button" : "article";
 
   return (
-    <button className={`cromo cromo-${heroe.numero}`} onClick={onClick}>
-      <span className="cromo-numero">{heroe.numero}</span>
+    <Elemento
+      className={`cromo cromo-${numero}`}
+      onClick={onClick}
+      aria-label={onClick ? `${numero} ${heroe.nombre}, ${etiquetaRareza}, ${etiquetaTipo}` : undefined}
+    >
+      <span className="cromo-numero">{numero}</span>
       <span
         className={`cromo-rareza cromo-rareza--${rareza}`}
         aria-label={etiquetaRareza}
@@ -39,11 +55,16 @@ export default function TarjetaCromo({ heroe, mundo, onClick, en = false }) {
       >
         <IconoMundo nombre={`rareza_${rareza}`} />
       </span>
-      <IlustracionCromo mundo={mundo} />
+      <span
+        className={`cromo-ilustracion ${heroe.holografico === true ? "cromo-ilustracion--holografica" : ""}`}
+        style={{ backgroundColor: mundo?.color }}
+      >
+        <IlustracionCromo mundo={mundo} holografico={heroe.holografico === true} />
+      </span>
       <b>{heroe.nombre}</b>
       <small>
-        {nombreMundo} · {tipo[en ? "en" : "es"]}
+        {heroe.mundoNombre || nombreMundo} · {etiquetaTipo}
       </small>
-    </button>
+    </Elemento>
   );
 }
