@@ -11,12 +11,11 @@
   max-width: 300px;
   color: var(--texto-inverso-suave);
   margin-top: 12px;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
 }
 .columnas-pie h3 {
   color: var(--texto-inverso-suave);
-  font:
-    400 13px var(--fuente-rubik),
+  font: 400 calc(13px * var(--escala-texto, 1)) var(--fuente-rubik),
     sans-serif;
   margin-bottom: 12px;
 }
@@ -24,12 +23,12 @@
 .columnas-pie button {
   display: block;
   margin-block: 8px;
-  font-size: 13px;
+  font-size: calc(13px * var(--escala-texto, 1));
 }
 .columnas-pie button {
   color: var(--texto-inverso);
   border: 0;
-  background: transparent;
+  background: var(--transparente);
   padding: 0;
   text-align: left;
 }
@@ -46,13 +45,13 @@
   justify-content: space-between;
   gap: 16px;
   color: var(--texto-inverso-suave);
-  font-size: 12px;
+  font-size: calc(12px * var(--escala-texto, 1));
 }
 .pie-creditos .cookies > .cookies-boton {
-  background: transparent;
+  background: var(--transparente);
   color: var(--texto-inverso-suave);
   border: 0;
-  font-size: 12px;
+  font-size: calc(12px * var(--escala-texto, 1));
   padding: 8px 0;
 }
 
@@ -100,10 +99,10 @@
   max-width: 750px;
 }
 .cromoverso .columnas-pie h3 {
-  color: #ffd642;
+  color: var(--marca-acento);
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 11px;
+  font-size: calc(11px * var(--escala-texto, 1));
 }
 @media (max-width: 640px) {
   .cromoverso .columnas-pie {

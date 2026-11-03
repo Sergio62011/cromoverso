@@ -2,3 +2,17 @@
   display: block;
   width: 100%;
 }
+.retrato-heroe--holografico .capa-holografica {
+  mix-blend-mode: screen;
+  animation: brillo-holografico 2.8s ease-in-out infinite alternate;
+}
+@keyframes brillo-holografico {
+  from { opacity: 0.14; }
+  to { opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .retrato-heroe--holografico .capa-holografica {
+    animation: none;
+    opacity: 0.22;
+  }
+}

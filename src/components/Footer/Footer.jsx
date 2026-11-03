@@ -9,15 +9,20 @@ export default function Footer({
   etiqueta,
   onCuenta,
   idioma,
+  textos,
   onAbrirCookies,
 }) {
-  const t = interfaz[idioma];
+  const t = textos ?? interfaz[idioma];
   return (
     <footer className="pie-home">
       <div className="ancho-home">
         <div className="columnas-pie">
           <div>
-            <Marca nombre={nombre} tipo={tipo} />
+            <Marca
+              nombre={t.nombreLogo ?? nombre}
+              tipo={tipo}
+              ariaLabel={t.ariaMarca}
+            />
             <p>{descripcion}</p>
           </div>
           <div>
@@ -33,7 +38,9 @@ export default function Footer({
         </div>
         <div className="pie-creditos">
           <span>
-            © 2026 {nombre} · {t.academico}
+            {t.derechos
+              ? t.derechos.replaceAll("{anio}", "2026")
+              : `© 2026 ${nombre} · ${t.academico}`}
           </span>
           <button className="enlace-home" onClick={onAbrirCookies}>
             {t.cookies}

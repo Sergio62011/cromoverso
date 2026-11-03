@@ -36,6 +36,7 @@ select {
   color: var(--texto-principal);
   min-height: 100dvh;
   font-family: var(--fuente-rubik);
+  font-size: calc(16px * var(--escala-texto, 1));
 }
 
 .landing h1,
@@ -52,14 +53,10 @@ select {
 .landing p {
   text-wrap: pretty;
 }
-.landing button,
-.landing input,
-.landing select {
-  font: inherit;
-}
+
 .landing button,
 .landing a {
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: var(--transparente);
 }
 .landing button {
   cursor: pointer;
@@ -98,11 +95,11 @@ select {
   border: 1px solid var(--borde-fuerte);
   border-radius: 99px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   line-height: 1.4;
   text-align: center;
   color: var(--texto-principal);
-  background: transparent;
+  background: var(--transparente);
   transition:
     transform 160ms ease,
     filter 160ms ease;
@@ -129,16 +126,16 @@ select {
   margin-bottom: 24px;
 }
 .titulo-seccion h2 {
-  font-size: 28px;
+  font-size: calc(28px * var(--escala-texto, 1));
 }
 .enlace-home {
   color: var(--marca-primario) !important;
   display: inline-flex;
   gap: 8px;
   align-items: center;
-  background: none;
+  background: var(--transparente);
   border: 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   font-weight: 600;
 }
 .enlace-home:hover {
@@ -162,12 +159,12 @@ select {
 }
 @media (max-width: 640px) {
   .titulo-seccion h2 {
-    font-size: 21px;
+    font-size: calc(21px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
   .enlace-home {
-    font-size: 12px;
+    font-size: calc(12px * var(--escala-texto, 1));
     flex-shrink: 0;
   }
 }
@@ -180,8 +177,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
-.cromoverso {
-}
+
 .cromoverso .ancho-home {
   width: min(1344px, calc(100% - 96px));
 }
@@ -192,8 +188,8 @@ select {
   font-weight: 800;
 }
 .cromoverso .boton-home {
-  border: 2px solid #191130;
-  box-shadow: 2px 2px 0 #191130;
+  border: 2px solid var(--texto-principal);
+  box-shadow: var(--sombra-pop-pequena);
 }
 @media (max-width: 640px) {
   .cromoverso .ancho-home {

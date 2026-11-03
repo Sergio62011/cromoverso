@@ -4,7 +4,7 @@
   gap: 10px;
   flex-shrink: 0;
   font-family: var(--fuente-unbounded);
-  font-size: 22px;
+  font-size: calc(22px * var(--escala-texto, 1));
   font-weight: 700;
 }
 .emblema {
@@ -17,18 +17,18 @@
   border-radius: 50%;
 }
 .emblema svg {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
 }
 @media (max-width: 640px) {
   .marca-home {
-    font-size: 20px;
+    font-size: calc(20px * var(--escala-texto, 1));
   }
 }
 .cromoverso .marca-home {
   font-weight: 800;
 }
 .cromoverso .emblema {
-  border: 2px solid #191130;
-  color: #ffd642;
+  border: 2px solid var(--borde-fuerte);
+  color: var(--marca-acento);
 }

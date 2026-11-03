@@ -20,16 +20,19 @@ npm run preview
 
 ## Organización
 
-- `src/pages/Home.jsx`: composición del home y acciones de demostración.
+- `src/pages/Home.jsx`: home y mundos destacados.
+- `src/pages/CatalogoMundo.jsx`: catálogo de cromos, filtros y detalle del cromo.
 - `src/components/`: cada carpeta incluye el componente `.jsx` y su `.css`.
 - `src/styles/tokens.css`: colores de marca, fuentes, espaciado y radio.
 - `src/styles/base.css`: reset, contenedores y elementos comunes.
-- `src/data/catalogo.js`: catálogo local de ejemplo.
-- `src/data/interfaz.js`: traducciones ES/EN de navegación y preferencias.
+- `src/data/catalogo.js`: datos de respaldo para la demo.
+- `src/data/interfaz.js`: textos de respaldo en ES/EN.
 - `src/context/PreferenciasContext.jsx`: estado compartido de idioma y consentimiento.
 - `src/services/cookies.js`: lectura, guardado y eliminación de cookies.
 - `src/services/api.js`: cliente GET para la API real del proyecto.
 - `src/hooks/useRecurso.js`: consulta cancelable, carga, error y reintento.
+- `src/hooks/useTextos.js`: obtiene los textos de la API según el idioma y los adapta al home.
+- `src/hooks/useMundos.js`: obtiene los mundos de la API y usa el catálogo local como respaldo.
 - `src/hooks/useDetalle.js`: datos del diálogo de demostración.
 
 ## Componentes incluidos
@@ -64,15 +67,15 @@ Los estilos están separados por responsabilidad, pero usan las clases y los tok
 
 ## Datos y API
 
-**El home usa datos locales y funciona sin backend.** El cliente HTTP y el hook están incluidos para la práctica de integración, pero no sustituyen automáticamente el catálogo ni los textos locales. No se anuncia una integración remota que todavía no está conectada.
+El home carga los mundos desde `GET /mundos`. Cada mundo abre su catálogo en `/mundos/{id}`, que carga sus cromos y datos desde `GET /mundos/{id}`. Los textos de interfaz se cargan con `GET /textos?idioma=es` o `GET /textos?idioma=en`; los catálogos locales son respaldo si no se puede consultar la API.
 
 API configurada: `https://yanethm-cromoverso-api.fly.dev/api/v1`.
 
-Endpoints del home: `GET /mundos`, `GET /rarezas`, `GET /cromos`, `GET /idiomas` y `GET /textos?idioma=es`.
+El endpoint de textos usado por el home es `GET /textos?idioma=es` o `GET /textos?idioma=en`.
 
 Las listas llegan en `datos`, las listas paginadas incluyen `paginacion` y los textos llegan en `textos`. Consulta el [contrato](https://yanethm-cromoverso-api.fly.dev/docs/contrato) antes de adaptar campos. El formulario de fecha de Taquilla es una demostración local: el contrato no documenta filtro remoto por fecha.
 
-Para integrar, usa `useRecurso` en el contenedor, adapta la respuesta al objeto que esperan las tarjetas y pasa ese resultado por props. Maneja carga y error antes de renderizar. Los componentes de presentación no necesitan conocer la URL de la API.
+`useTextos` conserva el árbol de textos del contrato y prepara alias para los componentes del home. Los componentes de presentación no necesitan conocer la URL de la API.
 
 ## Cookies e idioma
 

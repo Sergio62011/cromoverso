@@ -25,7 +25,7 @@ export default function PreferenciasCookies({
       onClose={onCerrar}
     >
       <h2 id={id}>{textos.cookies}</h2>
-      <p>{textos.descripcion}</p>
+      <p>{textos.descripcionCookiesPreferencias ?? textos.descripcion}</p>
       <section>
         <h3>{textos.necesarias}</h3>
         <p>{textos.necesariasTexto}</p>
@@ -53,7 +53,7 @@ export default function PreferenciasCookies({
           className="boton-home secundario"
           onClick={() => dialogo.current.close()}
         >
-          {textos.cerrar}
+          {textos.cerrarPreferencias ?? textos.cerrar}
         </button>
       </div>
     </dialog>

@@ -7,7 +7,7 @@
     place-items: center;
     width: 44px;
     height: 44px;
-    background: none;
+    background: var(--transparente);
     color: var(--texto-principal);
     border: 1px solid var(--borde-fuerte);
     border-radius: 50%;
@@ -21,7 +21,7 @@
 }
 @media (max-width: 640px) {
   .cromoverso .boton-menu {
-    color: #fff;
-    background: #35206c;
+    color: var(--texto-inverso);
+    background: var(--fondo-inverso-2);
   }
 }

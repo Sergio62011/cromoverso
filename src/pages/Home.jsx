@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LayoutPublico from "../components/LayoutPublico/LayoutPublico.jsx";
 import HeroCromoverso from "../components/HeroCromoverso/HeroCromoverso.jsx";
 import SeccionMundos from "../components/SeccionMundos/SeccionMundos.jsx";
@@ -5,50 +6,71 @@ import IlustracionCromo from "../components/IlustracionCromo/IlustracionCromo.js
 import DialogoDetalle from "../components/DialogoDetalle/DialogoDetalle.jsx";
 import { usePreferencias } from "../context/PreferenciasContext.jsx";
 import { useDetalle } from "../hooks/useDetalle.js";
-import { mundos, heroes } from "../data/catalogo.js";
+import { useTextos } from "../hooks/useTextos.js";
+import { useMundos } from "../hooks/useMundos.js";
+import { useCromosDestacados } from "../hooks/useCromosDestacados.js";
+import { proyecto } from "../config/proyecto.js";
 
 export default function Home() {
   const { idioma } = usePreferencias();
+  const { textos } = useTextos(idioma);
+  const { mundos } = useMundos();
+  const { cromos: heroes } = useCromosDestacados();
   const en = idioma === "en";
-  const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
-  function abrirMundo(mundo) {
-    setDetalle({
-      titulo: mundo.nombre,
-      descripcion: en
-        ? "A world of 20 hero, villain and ally cards."
-        : "Un mundo con 20 cromos de héroes, villanos y aliados.",
-      cerrar: en ? "Close" : "Cerrar",
-    });
-  }
-  function abrirCromo(heroe) {
+  const leer = (clave, respaldo) => textos[clave] || respaldo;
+  const { detalle, setDetalle, abrirCuenta } = useDetalle(textos);
+  useEffect(() => {
+    document.title = textos.tituloPagina;
+  }, [textos.tituloPagina]);
+  function abrirCromo(heroe, mundo) {
+    mundo ??=
+      typeof heroe.mundo === "number"
+        ? mundos[heroe.mundo]
+        : mundos.find((item) => item.id === heroe.mundo);
     setDetalle({
       titulo: heroe.nombre,
-      descripcion: `${mundos[heroe.mundo].nombre} · ${heroe.numero}`,
-      contenido: <IlustracionCromo mundo={mundos[heroe.mundo]} />,
-      cerrar: en ? "Close" : "Cerrar",
+      descripcion:
+        heroe.descripcion ?? `${mundo?.nombre ?? heroe.mundoNombre} · ${heroe.numero}`,
+      contenido: (
+        <IlustracionCromo
+          mundo={{ ...mundo, color: heroe.ilustracion?.colorBase ?? mundo?.color }}
+          holografico={heroe.holografico === true}
+        />
+      ),
+      cerrar: textos.cerrarDialogo,
     });
   }
   return (
     <>
       <LayoutPublico
+        textos={textos}
         destino="#mundos"
-        etiqueta={en ? "Worlds" : "Mundos"}
-        descripcion={
+        etiqueta={leer("mundos", en ? "Worlds" : "Mundos")}
+        descripcion={leer(
+          "descripcionInicio",
           en
             ? "Collect original heroes from six worlds."
-            : "Colecciona héroes originales de seis mundos."
-        }
+            : "Colecciona héroes originales de seis mundos.",
+        )}
         onCuenta={abrirCuenta}
       >
         <HeroCromoverso
+          textos={textos}
           en={en}
           heroes={heroes}
           mundos={mundos}
           abrirCuenta={abrirCuenta}
           onSeleccionarCromo={abrirCromo}
         />
-        <SeccionMundos mundos={mundos} en={en} abrirMundo={abrirMundo} />
-        <DialogoDetalle detalle={detalle} onCerrar={() => setDetalle(null)} />
+        <SeccionMundos
+          mundos={mundos}
+          textos={textos}
+        />
+        <DialogoDetalle
+          detalle={detalle}
+          textos={textos}
+          onCerrar={() => setDetalle(null)}
+        />
       </LayoutPublico>
     </>
   );

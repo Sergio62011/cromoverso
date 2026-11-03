@@ -2,12 +2,12 @@
   padding: 56px 0 32px;
 }
 .seccion-mundos h2 {
-  font-size: 32px;
+  font-size: calc(32px * var(--escala-texto, 1));
   margin-bottom: 4px;
 }
 .seccion-mundos p {
   color: var(--texto-secundario);
-  font-size: 16px;
+  font-size: calc(16px * var(--escala-texto, 1));
 }
 .mundos-grid {
   display: grid;
@@ -32,12 +32,12 @@
 }
 @media (max-width: 640px) {
   .seccion-mundos h2 {
-    font-size: 26px;
+    font-size: calc(26px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
   .seccion-mundos p {
-    font-size: 14px;
+    font-size: calc(14px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {

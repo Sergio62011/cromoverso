@@ -1,40 +1,104 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Marca from "../Marca/Marca.jsx";
 import MenuMovil from "../MenuMovil/MenuMovil.jsx";
 import SelectorIdioma from "../SelectorIdioma/SelectorIdioma.jsx";
+import IconoMundo from "../IconoMundo/IconoMundo.jsx";
 import { interfaz } from "../../data/interfaz.js";
 import "./Navbar.css";
 export default function Navbar({
   nombre,
   tipo,
   idioma,
+  textos,
   onCambiarIdioma,
   destino,
   etiqueta,
   onCuenta,
+  catalogoMobile = false,
 }) {
   const [abierto, setAbierto] = useState(false);
+  const [accesibilidadAbierta, setAccesibilidadAbierta] = useState(false);
+  const [altoContraste, setAltoContraste] = useState(false);
+  const [tamanoTexto, setTamanoTexto] = useState("normal");
+  const [movimientoReducido, setMovimientoReducido] = useState(false);
+  const [subrayarEnlaces, setSubrayarEnlaces] = useState(false);
+  const [fuenteFacil, setFuenteFacil] = useState(false);
+  const [declaracionAbierta, setDeclaracionAbierta] = useState(false);
+  const [esMovil, setEsMovil] = useState(false);
   const boton = useRef(null);
+  const botonAccesibilidad = useRef(null);
   const id = useId();
-  const t = interfaz[idioma];
+  const idAccesibilidad = useId();
+  const t = textos ?? interfaz[idioma];
+
+  useEffect(() => {
+    const debeBloquear =
+      abierto ||
+      (accesibilidadAbierta &&
+        window.matchMedia("(max-width: 767px)").matches);
+    if (!debeBloquear) return undefined;
+
+    const overflowAnterior = document.body.style.overflow;
+    const overflowRaizAnterior = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      document.documentElement.style.overflow = overflowRaizAnterior;
+    };
+  }, [abierto, accesibilidadAbierta]);
+
+  useEffect(() => {
+    const consulta = window.matchMedia("(max-width: 767px)");
+    const actualizarVista = () => setEsMovil(consulta.matches);
+    actualizarVista();
+    consulta.addEventListener("change", actualizarVista);
+    return () => consulta.removeEventListener("change", actualizarVista);
+  }, []);
+
+  useEffect(() => {
+    const raiz = document.documentElement;
+    const atributos = {
+      "data-accesibilidad-contraste": altoContraste,
+      "data-accesibilidad-texto": tamanoTexto,
+      "data-accesibilidad-movimiento": movimientoReducido,
+      "data-accesibilidad-enlaces": subrayarEnlaces,
+      "data-accesibilidad-fuente": fuenteFacil,
+    };
+    Object.entries(atributos).forEach(([nombre, valor]) => {
+      if (!valor || valor === "normal") raiz.removeAttribute(nombre);
+      else raiz.setAttribute(nombre, valor === true ? "true" : valor);
+    });
+    return () => {
+      Object.keys(atributos).forEach((nombre) => raiz.removeAttribute(nombre));
+    };
+  }, [altoContraste, tamanoTexto, movimientoReducido, subrayarEnlaces, fuenteFacil]);
+
   return (
     <header
-      className="cabecera-home"
+      className={`cabecera-home ${catalogoMobile ? "cabecera-home--catalogo" : ""}`}
       onKeyDown={(evento) => {
-        if (evento.key === "Escape" && abierto) {
+        if (evento.key === "Escape" && accesibilidadAbierta) {
+          setAccesibilidadAbierta(false);
+          botonAccesibilidad.current?.focus();
+        } else if (evento.key === "Escape" && abierto) {
           setAbierto(false);
           boton.current?.focus();
         }
       }}
     >
       <div className="ancho-home fila-cabecera">
-        <Marca nombre={nombre} tipo={tipo} />
+        <Marca
+          nombre={t.nombreLogo ?? nombre}
+          tipo={tipo}
+          ariaLabel={t.ariaMarca}
+        />
         <button className="ingreso-movil" onClick={() => onCuenta("ingresar")}>
           {t.ingresar}
         </button>
         <MenuMovil
           abierto={abierto}
-          onAlternar={() => setAbierto(!abierto)}
+          onAlternar={() => setAbierto((valor) => !valor)}
           menuId={id}
           botonRef={boton}
           textos={t}
@@ -45,8 +109,8 @@ export default function Navbar({
           aria-label={t.navegacion}
         >
           <a
-            href="#contenido"
-            aria-current="page"
+            href="/#contenido"
+            aria-current={window.location.pathname === "/" ? "page" : undefined}
             onClick={() => setAbierto(false)}
           >
             {t.inicio}
@@ -64,11 +128,168 @@ export default function Navbar({
                 {t.buscar}
               </a>
             )}
-            <SelectorIdioma
-              idioma={idioma}
-              onCambiar={onCambiarIdioma}
-              etiqueta={t.idioma}
-            />
+            <div className="idioma-fila">
+              <span className="idioma-etiqueta">
+                  {t.idioma}
+              </span>
+              <SelectorIdioma
+                idioma={idioma}
+                onCambiar={onCambiarIdioma}
+                etiqueta={t.ariaIdioma ?? t.idioma}
+              />
+            </div>
+            <div className="accesibilidad">
+              <button
+                ref={botonAccesibilidad}
+                className="accesibilidad-toggle"
+                type="button"
+                aria-expanded={accesibilidadAbierta}
+                aria-controls={idAccesibilidad}
+                onClick={() => setAccesibilidadAbierta((valor) => !valor)}
+              >
+                <span>
+                  {t.accesibilidad}
+                </span>
+                <IconoMundo nombre="accesibilidad" />
+              </button>
+              {accesibilidadAbierta && (
+                <div
+                  className="accesibilidad-overlay"
+                  onClick={(evento) => {
+                    if (evento.target === evento.currentTarget) {
+                      setAccesibilidadAbierta(false);
+                    }
+                  }}
+                >
+                  <section
+                    className="accesibilidad-panel"
+                    id={idAccesibilidad}
+                    role="dialog"
+                    aria-modal={esMovil}
+                    aria-labelledby={`${idAccesibilidad}-titulo`}
+                  >
+                    <header className="accesibilidad-panel__encabezado">
+                      <h2 id={`${idAccesibilidad}-titulo`}>
+                        {t.accesibilidad}
+                      </h2>
+                      <button
+                        className="accesibilidad-cerrar"
+                        type="button"
+                        aria-label={t.cerrarAccesibilidad ?? t.cerrar}
+                        onClick={() => setAccesibilidadAbierta(false)}
+                      >
+                        ×
+                      </button>
+                    </header>
+
+                    <div className="accesibilidad-opciones">
+                      <div className="accesibilidad-tamano">
+                        <h3>{t.tamanoTexto}</h3>
+                        <div
+                          className="accesibilidad-segmentos"
+                          role="group"
+                          aria-label={t.tamanoTexto}
+                        >
+                          {[
+                            ["normal", t.normal],
+                            ["grande", t.grande],
+                            ["muy-grande", t.muyGrande],
+                          ].map(([valor, etiqueta]) => (
+                            <button
+                              key={valor}
+                              type="button"
+                              aria-pressed={tamanoTexto === valor}
+                              onClick={() => setTamanoTexto(valor)}
+                            >
+                              {etiqueta}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="accesibilidad-interruptores">
+                        {[
+                          {
+                            id: "contraste",
+                            activo: altoContraste,
+                            cambiar: setAltoContraste,
+                            titulo: t.altoContraste,
+                            descripcion: t.altoContrasteDescripcion,
+                          },
+                          {
+                            id: "movimiento",
+                            activo: movimientoReducido,
+                            cambiar: setMovimientoReducido,
+                            titulo: t.reducirMovimiento,
+                            descripcion: t.reducirMovimientoDescripcion,
+                          },
+                          {
+                            id: "enlaces",
+                            activo: subrayarEnlaces,
+                            cambiar: setSubrayarEnlaces,
+                            titulo: t.subrayarEnlaces,
+                            descripcion: t.subrayarEnlacesDescripcion,
+                          },
+                          {
+                            id: "fuente",
+                            activo: fuenteFacil,
+                            cambiar: setFuenteFacil,
+                            titulo: t.fuenteFacil,
+                            descripcion: t.fuenteFacilDescripcion,
+                          },
+                        ].map((opcion) => (
+                          <div className="accesibilidad-control" key={opcion.id}>
+                            <div>
+                              <h3>{opcion.titulo}</h3>
+                              <p>{opcion.descripcion}</p>
+                            </div>
+                            <button
+                              className="accesibilidad-switch"
+                              type="button"
+                              role="switch"
+                              aria-checked={opcion.activo}
+                              aria-label={opcion.titulo}
+                              onClick={() => opcion.cambiar((valor) => !valor)}
+                            >
+                              <span />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {declaracionAbierta && (
+                      <p className="accesibilidad-declaracion">
+                        {t.declaracionTexto}
+                      </p>
+                    )}
+                    <footer className="accesibilidad-panel__pie">
+                      <button
+                        className="accesibilidad-declaracion-link"
+                        type="button"
+                        onClick={() => setDeclaracionAbierta((valor) => !valor)}
+                      >
+                        {t.declaracionAccesibilidad}
+                      </button>
+                      <button
+                        className="accesibilidad-restablecer"
+                        type="button"
+                        onClick={() => {
+                          setTamanoTexto("normal");
+                          setAltoContraste(false);
+                          setMovimientoReducido(false);
+                          setSubrayarEnlaces(false);
+                          setFuenteFacil(false);
+                          setDeclaracionAbierta(false);
+                        }}
+                      >
+                        {t.restablecer}
+                      </button>
+                    </footer>
+                  </section>
+                </div>
+              )}
+            </div>
             <button
               className="ingresar-home"
               onClick={() => onCuenta("ingresar")}

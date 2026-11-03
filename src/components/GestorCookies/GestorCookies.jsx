@@ -4,11 +4,16 @@ import { interfaz } from "../../data/interfaz.js";
 import BannerCookies from "../BannerCookies/BannerCookies.jsx";
 import PreferenciasCookies from "../PreferenciasCookies/PreferenciasCookies.jsx";
 import "./GestorCookies.css";
-export default function GestorCookies({ abierto, onAbrir, onCerrar }) {
+export default function GestorCookies({
+  abierto,
+  onAbrir,
+  onCerrar,
+  textos,
+}) {
   const { idioma, consentimiento, guardarConsentimiento, error } =
     usePreferencias();
   const [mensaje, setMensaje] = useState(false);
-  const t = interfaz[idioma];
+  const t = textos ?? interfaz[idioma];
   function guardar(permitir) {
     if (guardarConsentimiento(permitir)) {
       setMensaje(true);

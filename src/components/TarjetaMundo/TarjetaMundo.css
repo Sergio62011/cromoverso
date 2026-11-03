@@ -1,14 +1,15 @@
 .tarjeta-mundo {
+  text-decoration: none;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 16px;
-  border: 2px solid #191130;
+  border: 2px solid var(--borde-fuerte);
   border-radius: 18px;
-  box-shadow: 4px 4px 0 #191130;
+  box-shadow: var(--sombra-pop);
   background: var(--fondo-mundo);
-  color: #191130;
+  color: var(--borde-fuerte);
   text-align: left;
   transition: transform 180ms ease;
 }
@@ -20,25 +21,25 @@
   place-items: center;
   height: 44px;
   width: 44px;
-  border: 2px solid #191130;
+  border: 2px solid var(--borde-fuerte);
   border-radius: 50%;
   background: var(--mundo);
-  color: #fff;
+  color: var(--texto-inverso);
 }
 .tarjeta-mundo b {
-  font-size: 15px;
+  font-size: calc(15px * var(--escala-texto, 1));
 }
 .tarjeta-mundo small {
-  font-size: 14px;
-  color: #504765;
+  font-size: calc(14px * var(--escala-texto, 1));
+  color: var(--texto-secundario);
 }
 .etiqueta-mundo {
   position: absolute;
   top: 24px;
   right: 14px;
-  color: #825300;
-  background: #fff0c8;
-  font-size: 11px;
+  color: var(--estado-alerta);
+  background: var(--estado-alerta-suave);
+  font-size: calc(11px * var(--escala-texto, 1));
   font-weight: 700;
   padding: 2px 8px;
   border-radius: 99px;
@@ -52,14 +53,14 @@
 }
 @media (max-width: 640px) {
   .tarjeta-mundo b {
-    font-size: 13px;
+    font-size: calc(13px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
   .etiqueta-mundo {
     right: 8px;
     top: 20px;
-    font-size: 9px;
+    font-size: calc(9px * var(--escala-texto, 1));
     padding: 2px 6px;
   }
 }

@@ -8,13 +8,16 @@ import SaltarContenido from "../SaltarContenido/SaltarContenido.jsx";
 import GestorCookies from "../GestorCookies/GestorCookies.jsx";
 import "./LayoutPublico.css";
 export default function LayoutPublico({
+  textos,
   destino,
   etiqueta,
   descripcion,
   onCuenta,
+  catalogoMobile = false,
   children,
 }) {
   const { idioma, cambiarIdioma } = usePreferencias();
+  const textosActivos = textos ?? interfaz[idioma];
   const [cookiesAbiertas, setCookiesAbiertas] = useState(false);
   const disparador = useRef(null);
   function abrirCookies() {
@@ -27,15 +30,17 @@ export default function LayoutPublico({
   }
   return (
     <div className={`landing ${proyecto.id}`}>
-      <SaltarContenido texto={interfaz[idioma].saltar} />
+      <SaltarContenido texto={textosActivos.saltar} />
       <Navbar
         nombre={proyecto.nombre}
         tipo={proyecto.id}
         idioma={idioma}
+        textos={textosActivos}
         onCambiarIdioma={cambiarIdioma}
         destino={destino}
         etiqueta={etiqueta}
         onCuenta={onCuenta}
+        catalogoMobile={catalogoMobile}
       />
       <main id="contenido" tabIndex={-1}>
         {children}
@@ -44,6 +49,7 @@ export default function LayoutPublico({
         nombre={proyecto.nombre}
         tipo={proyecto.id}
         idioma={idioma}
+        textos={textosActivos}
         descripcion={descripcion}
         destino={destino}
         etiqueta={etiqueta}
@@ -51,6 +57,7 @@ export default function LayoutPublico({
         onAbrirCookies={abrirCookies}
       />
       <GestorCookies
+        textos={textosActivos}
         abierto={cookiesAbiertas}
         onAbrir={abrirCookies}
         onCerrar={cerrarCookies}

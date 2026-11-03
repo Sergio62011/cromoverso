@@ -1,14 +1,14 @@
 .hero-cromoverso {
   position: relative;
   overflow: hidden;
-  color: #fff;
-  background: #191130;
+  color: var(--texto-inverso);
+  background: var(--texto-principal);
 }
 .hero-cromoverso::before {
   content: "";
   position: absolute;
   inset: 0 0 0 26%;
-  background: #35206c;
+  background: var(--fondo-inverso-2);
   clip-path: polygon(
     4% 0,
     35% 6%,
@@ -39,7 +39,11 @@
   position: relative;
 }
 .texto-cromoverso h1 {
-  font-size: clamp(40px, 4.2vw, 60px);
+  font-size: clamp(
+    calc(40px * var(--escala-texto, 1)),
+    calc(4.2vw * var(--escala-texto, 1)),
+    calc(60px * var(--escala-texto, 1))
+  );
   letter-spacing: -0.035em;
   line-height: 1.04;
   margin-bottom: 28px;
@@ -47,28 +51,33 @@
   text-wrap: initial;
 }
 .texto-cromoverso .primario {
-  background: #ffd642;
-  color: #191130;
-  border-color: #ffd642;
+  background: var(--marca-acento);
+  color: var(--texto-principal);
+  border-color: var(--marca-acento);
 }
 .texto-cromoverso .secundario {
-  background: #fff;
-  color: #191130;
+  background: var(--texto-inverso);
+  color: var(--texto-principal);
 }
 .texto-cromoverso .boton-home {
   min-height: 56px;
   padding: 14px 24px;
+}
+.boton-home.secundario:hover {
+  background: var(--marca-acento);
+  color: var(--texto-principal);
+  border-color: var(--marca-acento);
 }
 .texto-cromoverso > p {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 26px;
-  font-size: 14px;
-  color: #d0c7e1;
+  font-size: calc(14px * var(--escala-texto, 1));
+  color: var(--texto-inverso-suave);
 }
 .texto-cromoverso > p svg {
-  color: #ffd642;
+  color: var(--marca-acento);
   flex-shrink: 0;
   width: 18px;
 }
@@ -79,7 +88,7 @@
 }
 @media (max-width: 1050px) {
   .texto-cromoverso h1 {
-    font-size: 44px;
+    font-size: calc(44px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
@@ -93,7 +102,7 @@
 }
 @media (max-width: 640px) {
   .texto-cromoverso h1 {
-    font-size: 38px;
+    font-size: calc(38px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {
@@ -108,7 +117,7 @@
 }
 @media (max-width: 640px) {
   .texto-cromoverso > p {
-    font-size: 12px;
+    font-size: calc(12px * var(--escala-texto, 1));
   }
 }
 
@@ -119,7 +128,7 @@
   .texto-cromoverso > .descripcion-cromoverso-movil {
     display: block;
     margin: 0 0 20px;
-    font-size: 14px;
+    font-size: calc(14px * var(--escala-texto, 1));
   }
 }
 @media (max-width: 640px) {

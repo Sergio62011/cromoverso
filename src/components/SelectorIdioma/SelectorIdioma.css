@@ -10,8 +10,8 @@
   border-radius: 99px;
   padding: 7px 12px;
   color: var(--texto-principal);
-  background: transparent;
-  font-size: 12px;
+  background: var(--transparente);
+  font-size: calc(12px * var(--escala-texto, 1));
   font-weight: 700;
 }
 .idiomas-home button[aria-pressed="true"] {
@@ -19,6 +19,6 @@
   color: var(--texto-inverso);
 }
 .cromoverso .idiomas-home {
-  border: 2px solid #191130;
-  box-shadow: 2px 2px 0 #191130;
+  border: 2px solid var(--borde-fuerte);
+  box-shadow: var(--sombra-pop-pequena);
 }

@@ -9,16 +9,16 @@
   background: var(--fondo-superficie);
 }
 .preferencias-dialogo::backdrop {
-  background: rgb(0 0 0 / 65%);
+  background: var(--superposicion-modal);
 }
 .preferencias-dialogo p {
   margin-block: 12px 20px;
 }
 .preferencias-dialogo h2 {
-  font-size: 26px;
+  font-size: calc(26px * var(--escala-texto, 1));
 }
 .preferencias-dialogo h3 {
-  font-size: 18px;
+  font-size: calc(18px * var(--escala-texto, 1));
 }
 .opcion-cookie {
   display: flex;

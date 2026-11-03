@@ -1,23 +1,21 @@
 import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaMundo from "../TarjetaMundo/TarjetaMundo.jsx";
 import "./SeccionMundos.css";
-export default function SeccionMundos({ mundos, en, abrirMundo }) {
+export default function SeccionMundos({ mundos, textos = {} }) {
+  const enlaceMundo = (plantilla, mundo) =>
+    (plantilla ?? "").replaceAll("{mundo}", mundo);
   return (
     <section className="seccion-mundos" id="mundos">
       <div className="ancho-home">
         <div className="titulo-seccion">
           <div>
-            <h2>{en ? "The six worlds" : "Los seis mundos"}</h2>
-            <p>
-              {en
-                ? "Each world has 20 cards featuring heroes, villains and allies."
-                : "Cada mundo tiene 20 cromos de héroes, villanos y aliados."}
-            </p>
+            <h2>{textos.mundosTitulo}</h2>
+            <p>{textos.mundosDescripcion}</p>
           </div>
-          <button className="enlace-home" onClick={() => abrirMundo(mundos[0])}>
+          <a className="enlace-home" href={`/mundos/${mundos[0]?.id}`}>
             <Flecha />
-            {en ? "View Ciudad Neón" : "Ver Ciudad Neón"}
-          </button>
+            {enlaceMundo(textos.verCiudadNeon, mundos[0]?.nombre)}
+          </a>
         </div>
         <div className="mundos-grid">
           {mundos.map((mundo, i) => (
@@ -25,8 +23,7 @@ export default function SeccionMundos({ mundos, en, abrirMundo }) {
               key={mundo.nombre}
               mundo={mundo}
               i={i}
-              en={en}
-              onSeleccionar={abrirMundo}
+              textos={textos}
             />
           ))}
         </div>

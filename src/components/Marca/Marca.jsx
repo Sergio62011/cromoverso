@@ -1,8 +1,12 @@
 import "./Marca.css";
 import IconoMundo from "../IconoMundo/IconoMundo.jsx";
-export default function Marca({ nombre, tipo }) {
+export default function Marca({ nombre, tipo, ariaLabel }) {
   return (
-    <a className="marca-home" href="/" aria-label={`${nombre}, inicio`}>
+    <a
+      className="marca-home"
+      href="/"
+      aria-label={ariaLabel ?? `${nombre}, inicio`}
+    >
       <span className={`emblema emblema-${tipo}`} aria-hidden="true">
         {tipo === "sintonia" ? (
           <svg viewBox="0 0 32 32">

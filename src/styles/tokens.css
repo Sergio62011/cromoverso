@@ -4,12 +4,16 @@
 /* Nombres iguales a las variables de Figma: "fondo/pagina" se usa como var(--fondo-pagina). */
 
 :root {
+  --escala-texto: 1;
   /* Color */
+  --transparente: transparent;
   --fondo-pagina: #fff8ec;
   --fondo-superficie: #ffffff;
   --fondo-sutil: #f5eee0;
   --fondo-inverso: #1a1033;
   --fondo-inverso-2: #2b1f52;
+  --superposicion-modal: rgb(26 16 51 / 65%);
+  --superposicion-menu: rgb(16 9 32 / 62%);
   --marca-primario: #6c3bff;
   --marca-primario-hover: #5527e6;
   --marca-primario-suave: #ede6ff;
@@ -72,6 +76,7 @@
   --sombra-pop: 4px 4px 0px 0px #1a1033;
   --sombra-pop-pequena: 2px 2px 0px 0px #1a1033;
   --sombra-flotante: 0px 16px 40px -8px #1a10332e;
+  --sombra-hoja-accesibilidad: 0px -8px 32px #1a10332e;
   --brillo-legendaria: 0px 0px 24px 2px #ffc71a8c;
 }
 
@@ -79,127 +84,127 @@
 .titular-gigante {
   font-family: var(--fuente-unbounded);
   font-weight: 900;
-  font-size: 88px;
-  line-height: 92px;
+  font-size: calc(88px * var(--escala-texto, 1));
+  line-height: calc(92px * var(--escala-texto, 1));
   letter-spacing: -2px;
 }
 .titular-display {
   font-family: var(--fuente-unbounded);
   font-weight: 700;
-  font-size: 56px;
-  line-height: 62px;
+  font-size: calc(56px * var(--escala-texto, 1));
+  line-height: calc(62px * var(--escala-texto, 1));
   letter-spacing: -1.5px;
 }
 .titular-h1 {
   font-family: var(--fuente-unbounded);
   font-weight: 700;
-  font-size: 40px;
-  line-height: 46px;
+  font-size: calc(40px * var(--escala-texto, 1));
+  line-height: calc(46px * var(--escala-texto, 1));
   letter-spacing: -1px;
 }
 .titular-h2 {
   font-family: var(--fuente-unbounded);
   font-weight: 600;
-  font-size: 28px;
-  line-height: 34px;
+  font-size: calc(28px * var(--escala-texto, 1));
+  line-height: calc(34px * var(--escala-texto, 1));
   letter-spacing: -0.5px;
 }
 .titular-h3 {
   font-family: var(--fuente-unbounded);
   font-weight: 600;
-  font-size: 20px;
-  line-height: 26px;
+  font-size: calc(20px * var(--escala-texto, 1));
+  line-height: calc(26px * var(--escala-texto, 1));
 }
 .titular-h4 {
   font-family: var(--fuente-rubik);
   font-weight: 700;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: calc(16px * var(--escala-texto, 1));
+  line-height: calc(22px * var(--escala-texto, 1));
 }
 .dato-cifra {
   font-family: var(--fuente-unbounded);
   font-weight: 700;
-  font-size: 32px;
-  line-height: 36px;
+  font-size: calc(32px * var(--escala-texto, 1));
+  line-height: calc(36px * var(--escala-texto, 1));
   letter-spacing: -0.5px;
 }
 .dato-numero-de-cromo {
   font-family: var(--fuente-unbounded);
   font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: calc(14px * var(--escala-texto, 1));
+  line-height: calc(16px * var(--escala-texto, 1));
 }
 .cuerpo-g {
   font-family: var(--fuente-rubik);
   font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: calc(18px * var(--escala-texto, 1));
+  line-height: calc(28px * var(--escala-texto, 1));
 }
 .cuerpo-m {
   font-family: var(--fuente-rubik);
   font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: calc(16px * var(--escala-texto, 1));
+  line-height: calc(24px * var(--escala-texto, 1));
 }
 .cuerpo-m-fuerte {
   font-family: var(--fuente-rubik);
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: calc(16px * var(--escala-texto, 1));
+  line-height: calc(24px * var(--escala-texto, 1));
 }
 .cuerpo-p {
   font-family: var(--fuente-rubik);
   font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: calc(14px * var(--escala-texto, 1));
+  line-height: calc(20px * var(--escala-texto, 1));
 }
 .cuerpo-p-fuerte {
   font-family: var(--fuente-rubik);
   font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: calc(14px * var(--escala-texto, 1));
+  line-height: calc(20px * var(--escala-texto, 1));
 }
 .detalle-nota {
   font-family: var(--fuente-rubik);
   font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: calc(12px * var(--escala-texto, 1));
+  line-height: calc(16px * var(--escala-texto, 1));
 }
 .detalle-nota-fuerte {
   font-family: var(--fuente-rubik);
   font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: calc(12px * var(--escala-texto, 1));
+  line-height: calc(16px * var(--escala-texto, 1));
 }
 .detalle-etiqueta {
   font-family: var(--fuente-rubik);
   font-weight: 700;
-  font-size: 11px;
-  line-height: 14px;
+  font-size: calc(11px * var(--escala-texto, 1));
+  line-height: calc(14px * var(--escala-texto, 1));
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .cromo-nombre-g {
   font-family: var(--fuente-unbounded);
   font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
+  font-size: calc(17px * var(--escala-texto, 1));
+  line-height: calc(22px * var(--escala-texto, 1));
 }
 .cromo-nombre-m {
   font-family: var(--fuente-unbounded);
   font-weight: 600;
-  font-size: 13px;
-  line-height: 17px;
+  font-size: calc(13px * var(--escala-texto, 1));
+  line-height: calc(17px * var(--escala-texto, 1));
 }
 .cromo-nombre-p {
   font-family: var(--fuente-unbounded);
   font-weight: 600;
-  font-size: 10px;
-  line-height: 13px;
+  font-size: calc(10px * var(--escala-texto, 1));
+  line-height: calc(13px * var(--escala-texto, 1));
 }
 .cromo-numero-p {
   font-family: var(--fuente-unbounded);
   font-weight: 700;
-  font-size: 9px;
-  line-height: 11px;
+  font-size: calc(9px * var(--escala-texto, 1));
+  line-height: calc(11px * var(--escala-texto, 1));
 }
