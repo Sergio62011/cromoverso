@@ -1,7 +1,7 @@
 .marca-home {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espacio-3);
   flex-shrink: 0;
   font-family: var(--fuente-unbounded);
   font-size: calc(22px * var(--escala-texto, 1));

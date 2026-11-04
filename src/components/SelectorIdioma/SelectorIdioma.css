@@ -1,14 +1,14 @@
 .idiomas-home {
   display: flex;
-  padding: 3px;
+  padding: var(--espacio-1);
   background: var(--fondo-superficie);
   border: 1px solid var(--borde-fuerte);
-  border-radius: 99px;
+  border-radius: var(--radio-pildora);
 }
 .idiomas-home button {
   border: 0;
-  border-radius: 99px;
-  padding: 7px 12px;
+  border-radius: var(--radio-pildora);
+  padding: var(--espacio-2) var(--espacio-3);
   color: var(--texto-principal);
   background: var(--transparente);
   font-size: calc(12px * var(--escala-texto, 1));

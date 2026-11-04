@@ -1,9 +1,9 @@
 .detalle-home {
   width: min(480px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
-  padding: 36px;
+  padding: var(--espacio-6);
   border: 1px solid var(--borde-fuerte);
-  border-radius: 16px;
+  border-radius: var(--radio-l);
   background: var(--fondo-superficie);
   color: var(--texto-principal);
 }
@@ -11,19 +11,19 @@
   background: var(--superposicion-modal);
 }
 .detalle-home h2 {
-  padding-right: 28px;
+  padding-right: var(--espacio-6);
   font-size: calc(28px * var(--escala-texto, 1));
 }
 .detalle-home p {
-  margin: 16px 0 24px;
+  margin: var(--espacio-4) 0 var(--espacio-5);
   color: var(--texto-secundario);
 }
 .detalle-home > svg {
   display: block;
   width: 100%;
   max-width: 240px;
-  border-radius: 12px;
-  margin: 0 auto 24px;
+  border-radius: var(--radio-m);
+  margin: 0 auto var(--espacio-5);
 }
 .cerrar-detalle {
   position: absolute;
@@ -41,12 +41,12 @@ body:has(.detalle-home[open]) {
 }
 @media (max-width: 640px) {
   .detalle-home {
-    padding: 28px;
+    padding: var(--espacio-6);
   }
 }
 .detalle-mundo svg {
   width: 100px;
   height: 100px;
-  margin: 0 auto 24px;
+  margin: 0 auto var(--espacio-5);
   display: block;
 }
