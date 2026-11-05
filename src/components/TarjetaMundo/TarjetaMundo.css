@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: var(--espacio-4);
   padding: var(--espacio-4);
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-l);
   box-shadow: var(--sombra-pop);
   background: var(--fondo-mundo);
@@ -21,26 +21,20 @@
   place-items: center;
   height: 44px;
   width: 44px;
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: 50%;
   background: var(--mundo);
   color: var(--texto-inverso);
 }
-.tarjeta-mundo b {
-  font-size: calc(15px * var(--escala-texto, 1));
-}
 .tarjeta-mundo small {
-  font-size: calc(14px * var(--escala-texto, 1));
   color: var(--texto-secundario);
 }
 .etiqueta-mundo {
   position: absolute;
-  top: 24px;
-  right: 14px;
+  top: var(--espacio-5);
+  right: var(--espacio-3);
   color: var(--estado-alerta);
   background: var(--estado-alerta-suave);
-  font-size: calc(11px * var(--escala-texto, 1));
-  font-weight: 700;
   padding: var(--espacio-1) var(--espacio-2);
   border-radius: var(--radio-pildora);
 }
@@ -52,15 +46,9 @@
   }
 }
 @media (max-width: 640px) {
-  .tarjeta-mundo b {
-    font-size: calc(13px * var(--escala-texto, 1));
-  }
-}
-@media (max-width: 640px) {
   .etiqueta-mundo {
-    right: 8px;
-    top: 20px;
-    font-size: calc(9px * var(--escala-texto, 1));
+    right: var(--espacio-2);
+    top: var(--espacio-5);
     padding: var(--espacio-1) var(--espacio-2);
   }
 }

@@ -2,7 +2,7 @@
   width: min(480px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
   padding: var(--espacio-6);
-  border: 1px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-l);
   background: var(--fondo-superficie);
   color: var(--texto-principal);
@@ -12,7 +12,6 @@
 }
 .detalle-home h2 {
   padding-right: var(--espacio-6);
-  font-size: calc(28px * var(--escala-texto, 1));
 }
 .detalle-home p {
   margin: var(--espacio-4) 0 var(--espacio-5);
@@ -34,7 +33,6 @@
   border: 0;
   background: var(--transparente);
   color: var(--texto-principal);
-  font-size: calc(28px * var(--escala-texto, 1)) !important;
 }
 body:has(.detalle-home[open]) {
   overflow: hidden;

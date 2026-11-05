@@ -1,7 +1,7 @@
 .saltar-contenido {
   position: fixed;
-  top: 8px;
-  left: 8px;
+  top: var(--espacio-2);
+  left: var(--espacio-2);
   transform: translateY(-180%);
   padding: var(--espacio-3) var(--espacio-5);
   background: var(--marca-primario);

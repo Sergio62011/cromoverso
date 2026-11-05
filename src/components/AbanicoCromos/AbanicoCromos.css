@@ -23,13 +23,7 @@
   border: 2px solid var(--texto-principal);
   border-radius: var(--radio-pildora);
   box-shadow: 2px 2px 0 var(--texto-principal);
-  transform: rotate(-6deg);
-  text-transform: uppercase;
-  font-size: calc(11px * var(--escala-texto, 1));
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
+  transform: rotate(-6deg);  white-space: nowrap;
 }
 @media (max-width: 1050px) {
   .abanico-cromos {
@@ -44,9 +38,7 @@
 }
 @media (max-width: 640px) {
   .etiqueta-cromos {
-    left: 15%;
-    font-size: calc(9px * var(--escala-texto, 1));
-  }
+    left: 15%;  }
 }
 @media (max-width: 640px) {
   .abanico-cromos {

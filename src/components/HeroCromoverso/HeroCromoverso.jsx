@@ -14,8 +14,8 @@ export default function HeroCromoverso({
     <section className="hero-cromoverso">
       <div className="ancho-home interior-cromoverso">
         <div className="texto-cromoverso">
-          <h1>{t.heroTitulo}</h1>
-          <p className="descripcion-cromoverso-movil">
+          <h1 className="titular-display">{t.heroTitulo}</h1>
+          <p className="descripcion-cromoverso-movil cuerpo-p">
             {t.heroDescripcion}
           </p>
           <div className="grupo-botones">
@@ -26,12 +26,12 @@ export default function HeroCromoverso({
               <IconoMundo nombre="regalo" />
               {t.heroRegistro}
             </button>
-            <a href="#mundos" className="boton-home secundario">
+            <a href="#mundos" className="boton-home secundario cuerpo-m-fuerte">
               <IconoMundo nombre="libro" />
               {t.heroExplorar}
             </a>
           </div>
-          <p>
+          <p className="cuerpo-p">
             <IconoMundo nombre="destello" />
             {t.iniciarColeccion}
           </p>

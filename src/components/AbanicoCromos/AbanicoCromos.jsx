@@ -9,7 +9,7 @@ export default function AbanicoCromos({ heroes, mundos, en, textos = {}, onSelec
         mundos.find((mundo) => mundo.nombre === heroe.mundoNombre);
   return (
     <div className="abanico-cromos">
-      <span className="etiqueta-cromos">
+      <span className="etiqueta-cromos detalle-etiqueta">
         <IconoMundo nombre="destello" />
         {textos.etiquetaHolografica}
       </span>

@@ -3,26 +3,26 @@
   position: absolute;
   width: 43%;
   padding: var(--espacio-2);
-  border: 3px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-l);
   background: var(--fondo-superficie);
   color: var(--borde-fuerte);
   box-shadow: var(--sombra-pop);
   text-align: left;
-  top: 70px;
+  top: var(--espacio-8);
   transition: transform 180ms ease;
 }
 .cromo .retrato-heroe {
   width: 100%;
   display: block;
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-m);
 }
 .cromo-ilustracion {
   position: relative;
   display: block;
   overflow: hidden;
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-m);
 }
 .cromo .cromo-ilustracion .retrato-heroe {
@@ -61,35 +61,31 @@
 }
 .cromo b {
   display: block;
-  font: 800 calc(20px * var(--escala-texto, 1)) var(--fuente-unbounded);
+
   margin: var(--espacio-2) var(--espacio-1) var(--espacio-1);
 }
 .cromo small {
   display: block;
-  font-size: calc(11px * var(--escala-texto, 1));
   margin: 0 var(--espacio-1) var(--espacio-1);
 }
 .cromo-numero {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: var(--espacio-4);
+  left: var(--espacio-4);
   z-index: 1;
-  font-weight: 800;
-  font-size: calc(14px * var(--escala-texto, 1));
-  line-height: 1.1;
   padding: var(--espacio-1) var(--espacio-2);
   background: var(--fondo-superficie);
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-pildora);
 }
 .cromo-rareza {
   position: absolute;
-  top: 18px;
-  right: 20px;
+  top: var(--espacio-4);
+  right: var(--espacio-4);
   color: var(--rareza-legendaria);
   z-index: 1;
   background: var(--fondo-superficie);
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-pildora);
   display: grid;
   place-items: center;
@@ -129,16 +125,6 @@
   transform: translateY(-12px);
   z-index: 2;
 }
-@media (max-width: 1050px) {
-  .cromo b {
-    font-size: calc(16px * var(--escala-texto, 1));
-  }
-}
-@media (max-width: 1050px) {
-  .cromo small {
-    font-size: calc(9px * var(--escala-texto, 1));
-  }
-}
 @media (max-width: 640px) {
   .cromo {
     padding: var(--espacio-1);
@@ -147,16 +133,15 @@
 }
 @media (max-width: 640px) {
   .cromo-numero {
-    top: 12px;
-    left: 12px;
-    font-size: calc(10px * var(--escala-texto, 1));
+    top: var(--espacio-3);
+    left: var(--espacio-3);
     padding: var(--espacio-1) var(--espacio-1);
   }
 }
 @media (max-width: 640px) {
   .cromo-rareza {
-    right: 12px;
-    top: 12px;
+    right: var(--espacio-3);
+    top: var(--espacio-3);
   }
 }
 @media (max-width: 640px) {
@@ -178,15 +163,5 @@
 .cromo-rareza svg {
     width: 12px;
     height: 16px;
-  }
-}
-@media (max-width: 640px) {
-  .cromo b {
-    font-size: calc(14px * var(--escala-texto, 1));
-  }
-}
-@media (max-width: 640px) {
-  .cromo small {
-    font-size: calc(8px * var(--escala-texto, 1));
   }
 }

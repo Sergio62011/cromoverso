@@ -9,10 +9,10 @@ export default function SeccionMundos({ mundos, textos = {} }) {
       <div className="ancho-home">
         <div className="titulo-seccion">
           <div>
-            <h2>{textos.mundosTitulo}</h2>
-            <p>{textos.mundosDescripcion}</p>
+            <h2 className="titular-h2">{textos.mundosTitulo}</h2>
+            <p className="cuerpo-m">{textos.mundosDescripcion}</p>
           </div>
-          <a className="enlace-home" href={`/mundos/${mundos[0]?.id}`}>
+          <a className="enlace-home cuerpo-p-fuerte" href={`/mundos/${mundos[0]?.id}`}>
             <Flecha />
             {enlaceMundo(textos.verCiudadNeon, mundos[0]?.nombre)}
           </a>
