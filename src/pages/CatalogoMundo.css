@@ -146,6 +146,8 @@
   white-space: nowrap;
 }
 .panel-rareza > button > span svg {
+  display: block;
+  align-self: center;
   width: 15px;
   height: 15px;
   flex: 0 0 15px;
@@ -239,13 +241,15 @@
   z-index: 2;
   top: 15px;
   right: 15px;
-  width: 24px;
-  height: 24px;
+  box-sizing: border-box;
+  width: 14px;
+  height: 20px;
+  border-radius: var(--radio-pildora);
   border-width: 2px;
 }
 .catalogo-grid .cromo-rareza svg {
-  width: 13px;
-  height: 13px;
+  width: 8px;
+  height: 12px;
 }
 .catalogo-grid .cromo-ilustracion {
   width: 100%;
@@ -541,13 +545,14 @@
   .catalogo-grid .cromo-rareza {
     top: 10px;
     right: 10px;
-    width: 19px;
-    height: 19px;
+    width: 13px;
+    height: 18px;
+    border-radius: var(--radio-pildora);
     border-width: 1.5px;
   }
   .catalogo-grid .cromo-rareza svg {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 11px;
   }
   .catalogo-grid .cromo-ilustracion {
     border-width: 2px;
