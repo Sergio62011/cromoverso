@@ -34,8 +34,7 @@ export default function Navbar({
   useEffect(() => {
     const debeBloquear =
       abierto ||
-      (accesibilidadAbierta &&
-        window.matchMedia("(max-width: 767px)").matches);
+      (accesibilidadAbierta && window.matchMedia("(max-width: 767px)").matches);
     if (!debeBloquear) return undefined;
 
     const overflowAnterior = document.body.style.overflow;
@@ -72,7 +71,13 @@ export default function Navbar({
     return () => {
       Object.keys(atributos).forEach((nombre) => raiz.removeAttribute(nombre));
     };
-  }, [altoContraste, tamanoTexto, movimientoReducido, subrayarEnlaces, fuenteFacil]);
+  }, [
+    altoContraste,
+    tamanoTexto,
+    movimientoReducido,
+    subrayarEnlaces,
+    fuenteFacil,
+  ]);
 
   return (
     <header
@@ -93,7 +98,7 @@ export default function Navbar({
           tipo={tipo}
           ariaLabel={t.ariaMarca}
         />
-        <button className="ingreso-movil" onClick={() => onCuenta("ingresar")}>
+        <button className="ingreso-movil cuerpo-p-fuerte" onClick={() => onCuenta("ingresar")}>
           {t.ingresar}
         </button>
         <MenuMovil
@@ -105,7 +110,7 @@ export default function Navbar({
         />
         <nav
           id={id}
-          className={`menu-home ${abierto ? "abierto" : ""}`}
+          className={`menu-home cuerpo-p-fuerte ${abierto ? "abierto" : ""}`}
           aria-label={t.navegacion}
         >
           <a
@@ -113,10 +118,22 @@ export default function Navbar({
             aria-current={window.location.pathname === "/" ? "page" : undefined}
             onClick={() => setAbierto(false)}
           >
-            {t.inicio}
+            <IconoMundo nombre="home" />
+            <span>{t.inicio}</span>
+            <span className="menu-home__actual detalle-etiqueta">
+              {idioma === "es" ? "ESTÁS AQUÍ" : "YOU ARE HERE"}
+            </span>
           </a>
-          <a href={destino} onClick={() => setAbierto(false)}>
-            {etiqueta}
+          <a
+            className="menu-home__destino"
+            href={destino}
+            onClick={() => setAbierto(false)}
+          >
+            <span>
+              <IconoMundo nombre="mundos" />
+              {etiqueta}
+            </span>
+            <IconoMundo nombre="flecha" />
           </a>
           <div className="acciones-home">
             {tipo === "taquilla" && (
@@ -129,9 +146,7 @@ export default function Navbar({
               </a>
             )}
             <div className="idioma-fila">
-              <span className="idioma-etiqueta">
-                  {t.idioma}
-              </span>
+              <span className="idioma-etiqueta">{t.idioma}</span>
               <SelectorIdioma
                 idioma={idioma}
                 onCambiar={onCambiarIdioma}
@@ -147,9 +162,7 @@ export default function Navbar({
                 aria-controls={idAccesibilidad}
                 onClick={() => setAccesibilidadAbierta((valor) => !valor)}
               >
-                <span>
-                  {t.accesibilidad}
-                </span>
+                <span>{t.accesibilidad}</span>
                 <IconoMundo nombre="accesibilidad" />
               </button>
               {accesibilidadAbierta && (
@@ -169,11 +182,11 @@ export default function Navbar({
                     aria-labelledby={`${idAccesibilidad}-titulo`}
                   >
                     <header className="accesibilidad-panel__encabezado">
-                      <h2 id={`${idAccesibilidad}-titulo`}>
+                      <h2 className="titular-h4" id={`${idAccesibilidad}-titulo`}>
                         {t.accesibilidad}
                       </h2>
                       <button
-                        className="accesibilidad-cerrar"
+                        className="accesibilidad-cerrar cuerpo-g"
                         type="button"
                         aria-label={t.cerrarAccesibilidad ?? t.cerrar}
                         onClick={() => setAccesibilidadAbierta(false)}
@@ -184,7 +197,7 @@ export default function Navbar({
 
                     <div className="accesibilidad-opciones">
                       <div className="accesibilidad-tamano">
-                        <h3>{t.tamanoTexto}</h3>
+                        <h3 className="detalle-nota-fuerte">{t.tamanoTexto}</h3>
                         <div
                           className="accesibilidad-segmentos"
                           role="group"
@@ -196,6 +209,7 @@ export default function Navbar({
                             ["muy-grande", t.muyGrande],
                           ].map(([valor, etiqueta]) => (
                             <button
+                              className="detalle-nota-fuerte"
                               key={valor}
                               type="button"
                               aria-pressed={tamanoTexto === valor}
@@ -238,10 +252,13 @@ export default function Navbar({
                             descripcion: t.fuenteFacilDescripcion,
                           },
                         ].map((opcion) => (
-                          <div className="accesibilidad-control" key={opcion.id}>
+                          <div
+                            className="accesibilidad-control"
+                            key={opcion.id}
+                          >
                             <div>
-                              <h3>{opcion.titulo}</h3>
-                              <p>{opcion.descripcion}</p>
+                              <h3 className="detalle-nota-fuerte">{opcion.titulo}</h3>
+                              <p className="detalle-nota">{opcion.descripcion}</p>
                             </div>
                             <button
                               className="accesibilidad-switch"
@@ -259,20 +276,20 @@ export default function Navbar({
                     </div>
 
                     {declaracionAbierta && (
-                      <p className="accesibilidad-declaracion">
+                      <p className="accesibilidad-declaracion detalle-nota">
                         {t.declaracionTexto}
                       </p>
                     )}
                     <footer className="accesibilidad-panel__pie">
                       <button
-                        className="accesibilidad-declaracion-link"
+                        className="accesibilidad-declaracion-link detalle-nota"
                         type="button"
                         onClick={() => setDeclaracionAbierta((valor) => !valor)}
                       >
                         {t.declaracionAccesibilidad}
                       </button>
                       <button
-                        className="accesibilidad-restablecer"
+                        className="accesibilidad-restablecer detalle-nota-fuerte"
                         type="button"
                         onClick={() => {
                           setTamanoTexto("normal");
@@ -290,18 +307,20 @@ export default function Navbar({
                 </div>
               )}
             </div>
-            <button
-              className="ingresar-home"
-              onClick={() => onCuenta("ingresar")}
-            >
-              {t.ingresar}
-            </button>
-            <button
-              className="boton-home primario"
-              onClick={() => onCuenta("registro")}
-            >
-              {t.registro}
-            </button>
+            <div className="botones-fila">
+              <button
+                className="ingresar-home cuerpo-p-fuerte"
+                onClick={() => onCuenta("ingresar")}
+              >
+                {t.ingresar}
+              </button>
+              <button
+                className="boton-home primario cuerpo-p-fuerte"
+                onClick={() => onCuenta("registro")}
+              >
+                {t.registro}
+              </button>
+            </div>
           </div>
         </nav>
       </div>

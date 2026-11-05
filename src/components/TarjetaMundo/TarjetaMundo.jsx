@@ -21,12 +21,12 @@ export default function TarjetaMundo({ mundo, i, textos = {} }) {
         <IconoMundo nombre={mundo.icono} />
       </span>
       {i === 0 && (
-        <span className="etiqueta-mundo">
+        <span className="etiqueta-mundo detalle-etiqueta">
           {interpolar(textos.mundoNumero, { numero: i + 1 })}
         </span>
       )}
-      <b>{mundo.nombre}</b>
-      <small>
+      <b className="titular-h4">{mundo.nombre}</b>
+      <small className="cuerpo-p">
         {interpolar(textos.veinteCromos, {
           cantidad:
             mundo.totalCromos ??

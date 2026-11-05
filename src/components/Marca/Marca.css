@@ -3,9 +3,6 @@
   align-items: center;
   gap: var(--espacio-3);
   flex-shrink: 0;
-  font-family: var(--fuente-unbounded);
-  font-size: calc(22px * var(--escala-texto, 1));
-  font-weight: 700;
 }
 .emblema {
   display: grid;
@@ -20,15 +17,7 @@
   width: 20px;
   height: 20px;
 }
-@media (max-width: 640px) {
-  .marca-home {
-    font-size: calc(20px * var(--escala-texto, 1));
-  }
-}
-.cromoverso .marca-home {
-  font-weight: 800;
-}
 .cromoverso .emblema {
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   color: var(--marca-acento);
 }

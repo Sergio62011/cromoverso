@@ -9,7 +9,7 @@
     height: 44px;
     background: var(--transparente);
     color: var(--texto-principal);
-    border: 1px solid var(--borde-fuerte);
+    border: var(--borde-grosor) solid var(--borde-fuerte);
     border-radius: 50%;
   }
 }

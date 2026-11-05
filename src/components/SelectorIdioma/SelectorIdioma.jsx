@@ -4,6 +4,7 @@ export default function SelectorIdioma({ idioma, onCambiar, etiqueta }) {
     <div className="idiomas-home" role="group" aria-label={etiqueta}>
       {["es", "en"].map((valor) => (
         <button
+          className="detalle-nota-fuerte"
           type="button"
           key={valor}
           lang={valor}

@@ -29,7 +29,7 @@ export default function LayoutPublico({
     disparador.current?.focus();
   }
   return (
-    <div className={`landing ${proyecto.id}`}>
+    <div className={`landing ${proyecto.id} cuerpo-m`}>
       <SaltarContenido texto={textosActivos.saltar} />
       <Navbar
         nombre={proyecto.nombre}

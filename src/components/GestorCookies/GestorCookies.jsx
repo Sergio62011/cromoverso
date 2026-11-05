@@ -31,7 +31,7 @@ export default function GestorCookies({
         />
       )}
       {error && !abierto && (
-        <p className="error-cookies" role="alert">
+        <p className="error-cookies cuerpo-p" role="alert">
           {t.error}
         </p>
       )}
