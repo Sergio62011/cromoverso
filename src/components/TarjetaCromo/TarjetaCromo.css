@@ -93,6 +93,9 @@
   border-radius: var(--radio-pildora);
   display: grid;
   place-items: center;
+  box-sizing: border-box;
+  width: 14px;
+  height: 20px;
 }
 .cromo-rareza--comun {
   color: var(--rareza-comun);
@@ -109,9 +112,15 @@
 .cromo-rareza--legendaria {
   color: var(--rareza-legendaria);
 }
+
+.cromo-rareza--rara svg,
+.cromo-rareza--epica svg {
+  fill: currentColor;
+}
+
 .cromo-rareza svg {
-  width: 15px;
-  height: 20px;
+  width: 8px;
+  height: 12px;
 }
 .cromo-041 {
   left: 0;
@@ -157,27 +166,12 @@
   .cromo-rareza {
     right: 12px;
     top: 12px;
+    width: 13px;
+    height: 18px;
   }
-}
-@media (max-width: 640px) {
-  .cromo-rareza--comun {
-  color: var(--rareza-comun);
-}
-
-.cromo-rareza--rara {
-  color: var(--rareza-rara);
-}
-
-.cromo-rareza--epica {
-  color: var(--rareza-epica);
-}
-
-.cromo-rareza--legendaria {
-  color: var(--rareza-legendaria);
-}
-.cromo-rareza svg {
-    width: 12px;
-    height: 16px;
+  .cromo-rareza svg {
+    width: 8px;
+    height: 11px;
   }
 }
 @media (max-width: 640px) {

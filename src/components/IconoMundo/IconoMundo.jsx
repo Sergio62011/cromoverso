@@ -131,9 +131,9 @@ const TRAZOS = {
     </>
   ),
   rareza_comun: <circle cx="12" cy="12" r="5" />,
-  rareza_rara: <path d="m12 3 9 9-9 9-9-9 9-9Z" />,
+  rareza_rara: <path d="m12 3 9 9-9 9-9-9 9-9Z" strokeLinejoin="miter" />,
   rareza_epica: (
-    <path d="m12 2 2.6 6.2L21 11l-6.4 2.8L12 20l-2.6-6.2L3 11l6.4-2.8L12 2Z" />
+    <path d="m12 2.5 2.9 6.1 6.7.9-4.9 4.6 1.2 6.7-5.9-3.3-5.9 3.3 1.2-6.7-4.9-4.6 6.7-.9L12 2.5Z" strokeLinejoin="miter" />
   ),
   rareza_legendaria: (
     <svg
