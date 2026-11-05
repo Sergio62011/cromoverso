@@ -3,7 +3,7 @@ import IconoMundo from "../IconoMundo/IconoMundo.jsx";
 export default function Marca({ nombre, tipo, ariaLabel }) {
   return (
     <a
-      className="marca-home"
+      className="marca-home titular-h3"
       href="/"
       aria-label={ariaLabel ?? `${nombre}, inicio`}
     >

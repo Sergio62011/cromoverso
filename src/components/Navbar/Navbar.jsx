@@ -98,7 +98,7 @@ export default function Navbar({
           tipo={tipo}
           ariaLabel={t.ariaMarca}
         />
-        <button className="ingreso-movil" onClick={() => onCuenta("ingresar")}>
+        <button className="ingreso-movil cuerpo-p-fuerte" onClick={() => onCuenta("ingresar")}>
           {t.ingresar}
         </button>
         <MenuMovil
@@ -110,7 +110,7 @@ export default function Navbar({
         />
         <nav
           id={id}
-          className={`menu-home ${abierto ? "abierto" : ""}`}
+          className={`menu-home cuerpo-p-fuerte ${abierto ? "abierto" : ""}`}
           aria-label={t.navegacion}
         >
           <a
@@ -120,7 +120,7 @@ export default function Navbar({
           >
             <IconoMundo nombre="home" />
             <span>{t.inicio}</span>
-            <span className="menu-home__actual">
+            <span className="menu-home__actual detalle-etiqueta">
               {idioma === "es" ? "ESTÁS AQUÍ" : "YOU ARE HERE"}
             </span>
           </a>
@@ -182,11 +182,11 @@ export default function Navbar({
                     aria-labelledby={`${idAccesibilidad}-titulo`}
                   >
                     <header className="accesibilidad-panel__encabezado">
-                      <h2 id={`${idAccesibilidad}-titulo`}>
+                      <h2 className="titular-h4" id={`${idAccesibilidad}-titulo`}>
                         {t.accesibilidad}
                       </h2>
                       <button
-                        className="accesibilidad-cerrar"
+                        className="accesibilidad-cerrar cuerpo-g"
                         type="button"
                         aria-label={t.cerrarAccesibilidad ?? t.cerrar}
                         onClick={() => setAccesibilidadAbierta(false)}
@@ -197,7 +197,7 @@ export default function Navbar({
 
                     <div className="accesibilidad-opciones">
                       <div className="accesibilidad-tamano">
-                        <h3>{t.tamanoTexto}</h3>
+                        <h3 className="detalle-nota-fuerte">{t.tamanoTexto}</h3>
                         <div
                           className="accesibilidad-segmentos"
                           role="group"
@@ -209,6 +209,7 @@ export default function Navbar({
                             ["muy-grande", t.muyGrande],
                           ].map(([valor, etiqueta]) => (
                             <button
+                              className="detalle-nota-fuerte"
                               key={valor}
                               type="button"
                               aria-pressed={tamanoTexto === valor}
@@ -256,8 +257,8 @@ export default function Navbar({
                             key={opcion.id}
                           >
                             <div>
-                              <h3>{opcion.titulo}</h3>
-                              <p>{opcion.descripcion}</p>
+                              <h3 className="detalle-nota-fuerte">{opcion.titulo}</h3>
+                              <p className="detalle-nota">{opcion.descripcion}</p>
                             </div>
                             <button
                               className="accesibilidad-switch"
@@ -275,20 +276,20 @@ export default function Navbar({
                     </div>
 
                     {declaracionAbierta && (
-                      <p className="accesibilidad-declaracion">
+                      <p className="accesibilidad-declaracion detalle-nota">
                         {t.declaracionTexto}
                       </p>
                     )}
                     <footer className="accesibilidad-panel__pie">
                       <button
-                        className="accesibilidad-declaracion-link"
+                        className="accesibilidad-declaracion-link detalle-nota"
                         type="button"
                         onClick={() => setDeclaracionAbierta((valor) => !valor)}
                       >
                         {t.declaracionAccesibilidad}
                       </button>
                       <button
-                        className="accesibilidad-restablecer"
+                        className="accesibilidad-restablecer detalle-nota-fuerte"
                         type="button"
                         onClick={() => {
                           setTamanoTexto("normal");
@@ -308,13 +309,13 @@ export default function Navbar({
             </div>
             <div className="botones-fila">
               <button
-                className="ingresar-home"
+                className="ingresar-home cuerpo-p-fuerte"
                 onClick={() => onCuenta("ingresar")}
               >
                 {t.ingresar}
               </button>
               <button
-                className="boton-home primario"
+                className="boton-home primario cuerpo-p-fuerte"
                 onClick={() => onCuenta("registro")}
               >
                 {t.registro}

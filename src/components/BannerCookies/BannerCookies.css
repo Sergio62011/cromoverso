@@ -7,15 +7,12 @@
   max-width: 760px;
   margin-inline: auto;
   padding: var(--espacio-5);
-  border: 2px solid var(--texto-principal);
+  border: var(--borde-grosor) solid var(--texto-principal);
   border-radius: var(--radio-m);
   background: var(--fondo-superficie);
   color: var(--texto-principal);
   max-height: calc(100dvh - 32px);
   overflow: auto;
-}
-.banner-cookies h2 {
-  font-size: calc(20px * var(--escala-texto, 1));
 }
 .banner-cookies p {
   margin-block: var(--espacio-3) var(--espacio-4);

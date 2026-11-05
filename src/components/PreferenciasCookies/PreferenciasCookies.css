@@ -3,7 +3,7 @@
   max-height: calc(100dvh - 32px);
   overflow: auto;
   padding: var(--espacio-6);
-  border: 1px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-m);
   color: var(--texto-principal);
   background: var(--fondo-superficie);
@@ -14,19 +14,13 @@
 .preferencias-dialogo p {
   margin-block: var(--espacio-3) var(--espacio-5);
 }
-.preferencias-dialogo h2 {
-  font-size: calc(26px * var(--escala-texto, 1));
-}
-.preferencias-dialogo h3 {
-  font-size: calc(18px * var(--escala-texto, 1));
-}
 .opcion-cookie {
   display: flex;
   align-items: center;
   gap: var(--espacio-4);
   margin-block: var(--espacio-5);
   padding: var(--espacio-4);
-  border: 1px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-s);
   cursor: pointer;
 }

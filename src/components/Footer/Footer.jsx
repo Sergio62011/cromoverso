@@ -23,26 +23,26 @@ export default function Footer({
               tipo={tipo}
               ariaLabel={t.ariaMarca}
             />
-            <p>{descripcion}</p>
+            <p className="cuerpo-p">{descripcion}</p>
           </div>
           <div>
-            <h3>{t.explora}</h3>
-            <a href="#contenido">{t.inicio}</a>
-            <a href={destino}>{etiqueta}</a>
+            <h3 className="detalle-etiqueta">{t.explora}</h3>
+            <a className="cuerpo-p" href="#contenido">{t.inicio}</a>
+            <a className="cuerpo-p" href={destino}>{etiqueta}</a>
           </div>
           <div>
-            <h3>{t.cuenta}</h3>
-            <button onClick={() => onCuenta("ingresar")}>{t.ingresar}</button>
-            <button onClick={() => onCuenta("registro")}>{t.registro}</button>
+            <h3 className="detalle-etiqueta">{t.cuenta}</h3>
+            <button className="cuerpo-p" onClick={() => onCuenta("ingresar")}>{t.ingresar}</button>
+            <button className="cuerpo-p" onClick={() => onCuenta("registro")}>{t.registro}</button>
           </div>
         </div>
         <div className="pie-creditos">
-          <span>
+          <span className="detalle-nota">
             {t.derechos
               ? t.derechos.replaceAll("{anio}", "2026")
               : `© 2026 ${nombre} · ${t.academico}`}
           </span>
-          <button className="enlace-home" onClick={onAbrirCookies}>
+          <button className="enlace-home cuerpo-p" onClick={onAbrirCookies}>
             {t.cookies}
           </button>
         </div>

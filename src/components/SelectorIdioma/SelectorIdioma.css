@@ -2,7 +2,7 @@
   display: flex;
   padding: var(--espacio-1);
   background: var(--fondo-superficie);
-  border: 1px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   border-radius: var(--radio-pildora);
 }
 .idiomas-home button {
@@ -11,14 +11,12 @@
   padding: var(--espacio-2) var(--espacio-3);
   color: var(--texto-principal);
   background: var(--transparente);
-  font-size: calc(12px * var(--escala-texto, 1));
-  font-weight: 700;
 }
 .idiomas-home button[aria-pressed="true"] {
   background: var(--marca-primario);
   color: var(--texto-inverso);
 }
 .cromoverso .idiomas-home {
-  border: 2px solid var(--borde-fuerte);
+  border: var(--borde-grosor) solid var(--borde-fuerte);
   box-shadow: var(--sombra-pop-pequena);
 }

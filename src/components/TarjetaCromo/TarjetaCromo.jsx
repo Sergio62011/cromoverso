@@ -47,7 +47,7 @@ export default function TarjetaCromo({
       onClick={onClick}
       aria-label={onClick ? `${numero} ${heroe.nombre}, ${etiquetaRareza}, ${etiquetaTipo}` : undefined}
     >
-      <span className="cromo-numero">{numero}</span>
+      <span className="cromo-numero dato-numero-de-cromo">{numero}</span>
       <span
         className={`cromo-rareza cromo-rareza--${rareza}`}
         aria-label={etiquetaRareza}
@@ -61,8 +61,8 @@ export default function TarjetaCromo({
       >
         <IlustracionCromo mundo={mundo} holografico={heroe.holografico === true} />
       </span>
-      <b>{heroe.nombre}</b>
-      <small>
+      <b className="cromo-nombre-g">{heroe.nombre}</b>
+      <small className="detalle-nota">
         {heroe.mundoNombre || nombreMundo} · {etiquetaTipo}
       </small>
     </Elemento>

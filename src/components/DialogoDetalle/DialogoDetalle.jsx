@@ -15,17 +15,17 @@ export default function DialogoDetalle({ detalle, onCerrar, textos = {} }) {
       aria-labelledby={id}
     >
       <button
-        className="cerrar-detalle"
+        className="cerrar-detalle cuerpo-g"
         aria-label={detalle?.cerrar ?? textos.cerrar ?? "Cerrar"}
         onClick={() => dialogo.current.close()}
       >
         ×
       </button>
-      <h2 id={id}>{detalle?.titulo}</h2>
-      <p>{detalle?.descripcion}</p>
+      <h2 className="titular-h2" id={id}>{detalle?.titulo}</h2>
+      <p className="cuerpo-m">{detalle?.descripcion}</p>
       {detalle?.contenido}
       <button
-        className="boton-home primario"
+        className="boton-home primario cuerpo-p-fuerte"
         onClick={() => dialogo.current.close()}
       >
         {detalle?.cerrar ?? textos.cerrar ?? "Cerrar"}
