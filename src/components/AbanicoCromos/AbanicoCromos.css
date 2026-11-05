@@ -13,15 +13,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--espacio-2);
   position: absolute;
   left: 22%;
   top: 0;
-  padding: 7px 14px;
+  padding: var(--espacio-2) var(--espacio-4);
   background: var(--marca-acento);
   color: var(--texto-principal);
   border: 2px solid var(--texto-principal);
-  border-radius: 99px;
+  border-radius: var(--radio-pildora);
   box-shadow: 2px 2px 0 var(--texto-principal);
   transform: rotate(-6deg);
   text-transform: uppercase;

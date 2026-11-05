@@ -1,9 +1,9 @@
 .seccion-mundos {
-  padding: 56px 0 32px;
+  padding: var(--espacio-7) 0 var(--espacio-6);
 }
 .seccion-mundos h2 {
   font-size: calc(32px * var(--escala-texto, 1));
-  margin-bottom: 4px;
+  margin-bottom: var(--espacio-1);
 }
 .seccion-mundos p {
   color: var(--texto-secundario);
@@ -12,7 +12,7 @@
 .mundos-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 16px;
+  gap: var(--espacio-4);
 }
 @media (max-width: 1050px) {
   .mundos-grid {
@@ -21,28 +21,47 @@
 }
 @media (max-width: 640px) {
   .seccion-mundos {
-    padding: 32px 0;
+    padding: var(--espacio-6) 0;
   }
 }
 @media (max-width: 640px) {
   .seccion-mundos .titulo-seccion {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    gap: var(--espacio-2);
+    margin-bottom: var(--espacio-4);
   }
 }
 @media (max-width: 640px) {
   .seccion-mundos h2 {
-    font-size: calc(26px * var(--escala-texto, 1));
+    font-size: calc(21px * var(--escala-texto, 1));
+    white-space: nowrap;
   }
 }
 @media (max-width: 640px) {
   .seccion-mundos p {
-    font-size: calc(14px * var(--escala-texto, 1));
+    display: none;
   }
 }
 @media (max-width: 640px) {
   .mundos-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    display: grid;
+    grid-auto-columns: minmax(142px, 42vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    gap: var(--espacio-3);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0 var(--espacio-1) var(--espacio-2);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .mundos-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mundos-grid > * {
+    scroll-snap-align: start;
   }
 }

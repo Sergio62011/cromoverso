@@ -3,10 +3,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px;
+  gap: var(--espacio-4);
+  padding: var(--espacio-4);
   border: 2px solid var(--borde-fuerte);
-  border-radius: 18px;
+  border-radius: var(--radio-l);
   box-shadow: var(--sombra-pop);
   background: var(--fondo-mundo);
   color: var(--borde-fuerte);
@@ -41,14 +41,14 @@
   background: var(--estado-alerta-suave);
   font-size: calc(11px * var(--escala-texto, 1));
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 99px;
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: var(--radio-pildora);
 }
 @media (max-width: 640px) {
   .tarjeta-mundo {
-    padding: 12px;
-    gap: 12px;
-    border-radius: 14px;
+    padding: var(--espacio-3);
+    gap: var(--espacio-3);
+    border-radius: var(--radio-m);
   }
 }
 @media (max-width: 640px) {
@@ -61,6 +61,6 @@
     right: 8px;
     top: 20px;
     font-size: calc(9px * var(--escala-texto, 1));
-    padding: 2px 6px;
+    padding: var(--espacio-1) var(--espacio-2);
   }
 }

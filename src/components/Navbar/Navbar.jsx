@@ -34,8 +34,7 @@ export default function Navbar({
   useEffect(() => {
     const debeBloquear =
       abierto ||
-      (accesibilidadAbierta &&
-        window.matchMedia("(max-width: 767px)").matches);
+      (accesibilidadAbierta && window.matchMedia("(max-width: 767px)").matches);
     if (!debeBloquear) return undefined;
 
     const overflowAnterior = document.body.style.overflow;
@@ -72,7 +71,13 @@ export default function Navbar({
     return () => {
       Object.keys(atributos).forEach((nombre) => raiz.removeAttribute(nombre));
     };
-  }, [altoContraste, tamanoTexto, movimientoReducido, subrayarEnlaces, fuenteFacil]);
+  }, [
+    altoContraste,
+    tamanoTexto,
+    movimientoReducido,
+    subrayarEnlaces,
+    fuenteFacil,
+  ]);
 
   return (
     <header
@@ -113,10 +118,22 @@ export default function Navbar({
             aria-current={window.location.pathname === "/" ? "page" : undefined}
             onClick={() => setAbierto(false)}
           >
-            {t.inicio}
+            <IconoMundo nombre="home" />
+            <span>{t.inicio}</span>
+            <span className="menu-home__actual">
+              {idioma === "es" ? "ESTÁS AQUÍ" : "YOU ARE HERE"}
+            </span>
           </a>
-          <a href={destino} onClick={() => setAbierto(false)}>
-            {etiqueta}
+          <a
+            className="menu-home__destino"
+            href={destino}
+            onClick={() => setAbierto(false)}
+          >
+            <span>
+              <IconoMundo nombre="mundos" />
+              {etiqueta}
+            </span>
+            <IconoMundo nombre="flecha" />
           </a>
           <div className="acciones-home">
             {tipo === "taquilla" && (
@@ -129,9 +146,7 @@ export default function Navbar({
               </a>
             )}
             <div className="idioma-fila">
-              <span className="idioma-etiqueta">
-                  {t.idioma}
-              </span>
+              <span className="idioma-etiqueta">{t.idioma}</span>
               <SelectorIdioma
                 idioma={idioma}
                 onCambiar={onCambiarIdioma}
@@ -147,9 +162,7 @@ export default function Navbar({
                 aria-controls={idAccesibilidad}
                 onClick={() => setAccesibilidadAbierta((valor) => !valor)}
               >
-                <span>
-                  {t.accesibilidad}
-                </span>
+                <span>{t.accesibilidad}</span>
                 <IconoMundo nombre="accesibilidad" />
               </button>
               {accesibilidadAbierta && (
@@ -238,7 +251,10 @@ export default function Navbar({
                             descripcion: t.fuenteFacilDescripcion,
                           },
                         ].map((opcion) => (
-                          <div className="accesibilidad-control" key={opcion.id}>
+                          <div
+                            className="accesibilidad-control"
+                            key={opcion.id}
+                          >
                             <div>
                               <h3>{opcion.titulo}</h3>
                               <p>{opcion.descripcion}</p>
@@ -290,18 +306,20 @@ export default function Navbar({
                 </div>
               )}
             </div>
-            <button
-              className="ingresar-home"
-              onClick={() => onCuenta("ingresar")}
-            >
-              {t.ingresar}
-            </button>
-            <button
-              className="boton-home primario"
-              onClick={() => onCuenta("registro")}
-            >
-              {t.registro}
-            </button>
+            <div className="botones-fila">
+              <button
+                className="ingresar-home"
+                onClick={() => onCuenta("ingresar")}
+              >
+                {t.ingresar}
+              </button>
+              <button
+                className="boton-home primario"
+                onClick={() => onCuenta("registro")}
+              >
+                {t.registro}
+              </button>
+            </div>
           </div>
         </nav>
       </div>

@@ -2,9 +2,9 @@
   display: block;
   position: absolute;
   width: 43%;
-  padding: 7px;
+  padding: var(--espacio-2);
   border: 3px solid var(--borde-fuerte);
-  border-radius: 18px;
+  border-radius: var(--radio-l);
   background: var(--fondo-superficie);
   color: var(--borde-fuerte);
   box-shadow: var(--sombra-pop);
@@ -16,14 +16,14 @@
   width: 100%;
   display: block;
   border: 2px solid var(--borde-fuerte);
-  border-radius: 12px;
+  border-radius: var(--radio-m);
 }
 .cromo-ilustracion {
   position: relative;
   display: block;
   overflow: hidden;
   border: 2px solid var(--borde-fuerte);
-  border-radius: 12px;
+  border-radius: var(--radio-m);
 }
 .cromo .cromo-ilustracion .retrato-heroe {
   border: 0;
@@ -62,12 +62,12 @@
 .cromo b {
   display: block;
   font: 800 calc(20px * var(--escala-texto, 1)) var(--fuente-unbounded);
-  margin: 6px 2px 2px;
+  margin: var(--espacio-2) var(--espacio-1) var(--espacio-1);
 }
 .cromo small {
   display: block;
   font-size: calc(11px * var(--escala-texto, 1));
-  margin: 0 2px 4px;
+  margin: 0 var(--espacio-1) var(--espacio-1);
 }
 .cromo-numero {
   position: absolute;
@@ -77,10 +77,10 @@
   font-weight: 800;
   font-size: calc(14px * var(--escala-texto, 1));
   line-height: 1.1;
-  padding: 3px 7px;
+  padding: var(--espacio-1) var(--espacio-2);
   background: var(--fondo-superficie);
   border: 2px solid var(--borde-fuerte);
-  border-radius: 99px;
+  border-radius: var(--radio-pildora);
 }
 .cromo-rareza {
   position: absolute;
@@ -90,7 +90,7 @@
   z-index: 1;
   background: var(--fondo-superficie);
   border: 2px solid var(--borde-fuerte);
-  border-radius: 99px;
+  border-radius: var(--radio-pildora);
   display: grid;
   place-items: center;
 }
@@ -141,8 +141,8 @@
 }
 @media (max-width: 640px) {
   .cromo {
-    padding: 5px;
-    border-radius: 12px;
+    padding: var(--espacio-1);
+    border-radius: var(--radio-m);
   }
 }
 @media (max-width: 640px) {
@@ -150,7 +150,7 @@
     top: 12px;
     left: 12px;
     font-size: calc(10px * var(--escala-texto, 1));
-    padding: 2px 4px;
+    padding: var(--espacio-1) var(--espacio-1);
   }
 }
 @media (max-width: 640px) {

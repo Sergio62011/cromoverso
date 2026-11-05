@@ -6,7 +6,7 @@
   right: 16px;
   max-width: 760px;
   margin-inline: auto;
-  padding: 24px;
+  padding: var(--espacio-5);
   border: 2px solid var(--texto-principal);
   border-radius: var(--radio-m);
   background: var(--fondo-superficie);
@@ -18,16 +18,16 @@
   font-size: calc(20px * var(--escala-texto, 1));
 }
 .banner-cookies p {
-  margin-block: 12px 16px;
+  margin-block: var(--espacio-3) var(--espacio-4);
 }
 @media (max-width: 640px) {
   .banner-cookies {
-    padding: 16px;
+    padding: var(--espacio-4);
   }
   .banner-cookies .grupo-botones {
-    gap: 8px;
+    gap: var(--espacio-2);
   }
   .banner-cookies .boton-home {
-    padding: 10px 14px;
+    padding: var(--espacio-3) var(--espacio-4);
   }
 }

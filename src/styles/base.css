@@ -79,7 +79,7 @@ select {
   outline: none;
 }
 .landing [id] {
-  scroll-margin-top: 24px;
+  scroll-margin-top: var(--espacio-5);
 }
 .ancho-home {
   width: min(1280px, calc(100% - 80px));
@@ -87,13 +87,13 @@ select {
 }
 .boton-home {
   min-height: 44px;
-  padding: 12px 24px;
+  padding: var(--espacio-3) var(--espacio-5);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--espacio-3);
   border: 1px solid var(--borde-fuerte);
-  border-radius: 99px;
+  border-radius: var(--radio-pildora);
   font-weight: 700;
   font-size: calc(14px * var(--escala-texto, 1));
   line-height: 1.4;
@@ -115,15 +115,15 @@ select {
 }
 .grupo-botones {
   display: flex;
-  gap: 12px;
+  gap: var(--espacio-3);
   flex-wrap: wrap;
 }
 .titulo-seccion {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--espacio-4);
+  margin-bottom: var(--espacio-5);
 }
 .titulo-seccion h2 {
   font-size: calc(28px * var(--escala-texto, 1));
@@ -131,7 +131,7 @@ select {
 .enlace-home {
   color: var(--marca-primario) !important;
   display: inline-flex;
-  gap: 8px;
+  gap: var(--espacio-2);
   align-items: center;
   background: var(--transparente);
   border: 0;
@@ -154,7 +154,7 @@ select {
 }
 @media (max-width: 640px) {
   .titulo-seccion {
-    gap: 12px;
+    gap: var(--espacio-3);
   }
 }
 @media (max-width: 640px) {

@@ -16,9 +16,15 @@ const TRAZOS = {
   ojo: (
     <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Zm10-3a3 3 0 1 0 0 6 3 3 0 0 0 0-6" />
   ),
-  ola: <path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M7 10a5 5 0 0 1 10 0" />,
-  hoja: <path d="M20 4C10 4 5 7 5 13a6 6 0 0 0 6 6c6 0 9-5 9-15ZM4 21c3-5 7-8 12-11" />,
-  runa: <path d="m12 2 2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2ZM19 16v6m-3-3h6" />,
+  ola: (
+    <path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M7 10a5 5 0 0 1 10 0" />
+  ),
+  hoja: (
+    <path d="M20 4C10 4 5 7 5 13a6 6 0 0 0 6 6c6 0 9-5 9-15ZM4 21c3-5 7-8 12-11" />
+  ),
+  runa: (
+    <path d="m12 2 2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5L12 2ZM19 16v6m-3-3h6" />
+  ),
   buscar: (
     <>
       <circle cx="10.5" cy="10.5" r="6.5" />
@@ -159,6 +165,47 @@ const TRAZOS = {
         strokeLinecap="round"
         strokeLinejoin="round"
         stroke="currentColor"
+      />
+    </svg>
+  ),
+  flecha: (
+    <svg
+      className="menu-home__flecha"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="m9 5 7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  mundos: (
+    <>
+      <path
+        xmlns="http://www.w3.org/2000/svg"
+        d="M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z"
+        stroke="#1A1033"
+      />
+      <path
+        xmlns="http://www.w3.org/2000/svg"
+        d="M3 15.0001C6 10.0001 18 4.00006 21 7.00006"
+        stroke="#1A1033"
+      />
+    </>
+  ),
+  home: (
+    <svg
+      className="icono-enlace-movil"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path
+        d="m3.5 10 8.5-7 8.5 7v10.5h-6v-7h-5v7h-6z"
+        strokeLinejoin="round"
       />
     </svg>
   ),
