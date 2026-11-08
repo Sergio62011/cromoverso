@@ -27,13 +27,30 @@ export default function Footer({
           </div>
           <div>
             <h3 className="detalle-etiqueta">{t.explora}</h3>
-            <a className="cuerpo-p" href="#contenido">{t.inicio}</a>
-            <a className="cuerpo-p" href={destino}>{etiqueta}</a>
+            <a className="cuerpo-p" href="#contenido">
+              {t.inicio}
+            </a>
+            <a className="cuerpo-p" href={destino}>
+              {etiqueta}
+            </a>
           </div>
           <div>
             <h3 className="detalle-etiqueta">{t.cuenta}</h3>
-            <button className="cuerpo-p" onClick={() => onCuenta("ingresar")}>{t.ingresar}</button>
-            <button className="cuerpo-p" onClick={() => onCuenta("registro")}>{t.registro}</button>
+            <button className="cuerpo-p" onClick={() => onCuenta("ingresar")}>
+              {t.ingresar}
+            </button>
+            <button className="cuerpo-p" onClick={() => onCuenta("registro")}>
+              {t.registro}
+            </button>
+          </div>
+          <div>
+            <h3 className="detalle-etiqueta">{t.legal}</h3>
+            <button className="cuerpo-p" onClick={() => onCuenta("ingresar")}>
+              {t.terminos}
+            </button>
+            <button className="cuerpo-p" onClick={() => onCuenta("registro")}>
+              {t.accesibilidad}
+            </button>
           </div>
         </div>
         <div className="pie-creditos">
