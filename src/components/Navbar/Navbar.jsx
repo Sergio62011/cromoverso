@@ -81,7 +81,7 @@ export default function Navbar({
 
   return (
     <header
-      className={`cabecera-home ${catalogoMobile ? "cabecera-home--catalogo" : ""}`}
+      className={`cabecera-home ${catalogoMobile ? "cabecera-home--catalogo" : ""} ${abierto ? "menu-abierto" : ""}`}
       onKeyDown={(evento) => {
         if (evento.key === "Escape" && accesibilidadAbierta) {
           setAccesibilidadAbierta(false);
