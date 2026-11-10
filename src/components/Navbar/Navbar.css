@@ -370,7 +370,7 @@
   .fila-cabecera {
     min-height: 76px;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0 var(--espacio-2);
     padding-inline: var(--espacio-4);
   }
@@ -418,6 +418,10 @@
     border-radius: 50%;
     background: var(--fondo-superficie);
     color: var(--texto-principal);
+  }
+
+  :root[data-accesibilidad-texto="muy-grande"] .ingreso-movil {
+    display: none;
   }
 
   .menu-home {
