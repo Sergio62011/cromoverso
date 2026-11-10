@@ -30,6 +30,7 @@ export default function Navbar({
   const id = useId();
   const idAccesibilidad = useId();
   const t = textos ?? interfaz[idioma];
+  const estaEnMundo = /^\/mundos\/[^/]+\/?$/.test(window.location.pathname);
 
   useEffect(() => {
     const debeBloquear =
@@ -127,6 +128,7 @@ export default function Navbar({
           <a
             className="menu-home__destino"
             href={destino}
+            aria-current={estaEnMundo ? "page" : undefined}
             onClick={() => setAbierto(false)}
           >
             <span>
