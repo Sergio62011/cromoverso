@@ -27,9 +27,21 @@
     gap: var(--espacio-2);
     margin-bottom: var(--espacio-4);
   }
+
+  .seccion-mundos .titulo-seccion > div {
+    min-width: 0;
+  }
 }
 @media (max-width: 640px) {
-  .seccion-mundos h2 {    white-space: nowrap;
+  .seccion-mundos h2 {    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .seccion-mundos .enlace-home {
+    min-width: 0;
+    max-width: 48%;
+    flex-shrink: 1;
+    align-items: flex-start;
   }
 }
 @media (max-width: 640px) {
@@ -44,9 +56,14 @@
     grid-auto-flow: column;
     grid-template-columns: none;
     gap: var(--espacio-3);
+    width: calc(100% + 40px);
+    margin-inline: -20px;
+    margin-top: -8px;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
-    padding: 0 var(--espacio-1) var(--espacio-2);
+    padding: 8px 20px calc(var(--espacio-2) + 8px);
+    scroll-padding-inline: 20px;
+    box-sizing: border-box;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
