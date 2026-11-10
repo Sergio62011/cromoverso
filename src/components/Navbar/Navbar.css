@@ -342,6 +342,10 @@
 }
 
 @media (max-width: 767px) {
+  .cabecera-home.menu-abierto .ingreso-movil {
+    display: none;
+  }
+
   .cromoverso .cabecera-home:not(.cabecera-home--catalogo) {
     position: fixed;
     inset: 0 0 auto;
