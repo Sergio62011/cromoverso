@@ -9,7 +9,15 @@ import { useDetalle } from "../hooks/useDetalle.js";
 import { useTextos } from "../hooks/useTextos.js";
 import { useMundos } from "../hooks/useMundos.js";
 import { useCromosDestacados } from "../hooks/useCromosDestacados.js";
-import { proyecto } from "../config/proyecto.js";
+import { useRecurso } from "../hooks/useRecurso.js";
+import IconoMundo from "../components/IconoMundo/IconoMundo.jsx";
+import TarjetaCromo from "../components/TarjetaCromo/TarjetaCromo.jsx";
+
+function obtenerMundo(respuesta) {
+  return (
+    respuesta?.mundo ?? respuesta?.datos?.mundo ?? respuesta?.datos ?? respuesta
+  );
+}
 
 export default function Home() {
   const { idioma } = usePreferencias();
@@ -17,11 +25,20 @@ export default function Home() {
   const { mundos } = useMundos();
   const { cromos: heroes } = useCromosDestacados(mundos);
   const en = idioma === "en";
-  const leer = (clave, respaldo) => textos[clave] || respaldo;
   const { detalle, setDetalle, abrirCuenta } = useDetalle(textos);
+
+  const recurso = useRecurso(`/mundos/${encodeURIComponent("neon")}`);
+  const mundo = obtenerMundo(recurso.datos);
+  const cromosNeon = Array.isArray(mundo?.cromos) ? mundo.cromos : [];
+
+  const legendarios = cromosNeon.filter((c) => c.rareza === "legendaria");
+
   useEffect(() => {
     document.title = textos.tituloPagina;
   }, [textos.tituloPagina]);
+
+  const leer = (clave, respaldo) => textos[clave] || respaldo;
+
   function abrirCromo(heroe, mundo) {
     mundo ??=
       typeof heroe.mundo === "number"
@@ -30,10 +47,14 @@ export default function Home() {
     setDetalle({
       titulo: heroe.nombre,
       descripcion:
-        heroe.descripcion ?? `${mundo?.nombre ?? heroe.mundoNombre} · ${heroe.numero}`,
+        heroe.descripcion ??
+        `${mundo?.nombre ?? heroe.mundoNombre} · ${heroe.numero}`,
       contenido: (
         <IlustracionCromo
-          mundo={{ ...mundo, color: heroe.ilustracion?.colorBase ?? mundo?.color }}
+          mundo={{
+            ...mundo,
+            color: heroe.ilustracion?.colorBase ?? mundo?.color,
+          }}
           holografico={heroe.holografico === true}
         />
       ),
@@ -41,37 +62,56 @@ export default function Home() {
     });
   }
   return (
-    <>
-      <LayoutPublico
+    <LayoutPublico
+      textos={textos}
+      destino="#mundos"
+      etiqueta={leer("mundos", en ? "Worlds" : "Mundos")}
+      descripcion={leer(
+        "descripcionInicio",
+        en
+          ? "Collect original heroes from six worlds."
+          : "Colecciona héroes originales de seis mundos.",
+      )}
+      onCuenta={abrirCuenta}
+    >
+      <HeroCromoverso
         textos={textos}
-        destino="#mundos"
-        etiqueta={leer("mundos", en ? "Worlds" : "Mundos")}
-        descripcion={leer(
-          "descripcionInicio",
-          en
-            ? "Collect original heroes from six worlds."
-            : "Colecciona héroes originales de seis mundos.",
-        )}
-        onCuenta={abrirCuenta}
+        en={en}
+        heroes={heroes}
+        mundos={mundos}
+        abrirCuenta={abrirCuenta}
+        onSeleccionarCromo={abrirCromo}
+      />
+      <SeccionMundos mundos={mundos} textos={textos} />
+
+      <section
+        id="legendarios"
+        className="ancho-home"
+        style={{ marginTop: "4rem" }}
       >
-        <HeroCromoverso
-          textos={textos}
-          en={en}
-          heroes={heroes}
-          mundos={mundos}
-          abrirCuenta={abrirCuenta}
-          onSeleccionarCromo={abrirCromo}
-        />
-        <SeccionMundos
-          mundos={mundos}
-          textos={textos}
-        />
-        <DialogoDetalle
-          detalle={detalle}
-          textos={textos}
-          onCerrar={() => setDetalle(null)}
-        />
-      </LayoutPublico>
-    </>
+        <h2 className="titular-h2">Legendarios</h2>
+        <div className="catalogo-grid" style={{ marginTop: "2rem" }}>
+          {legendarios.map((cromo) => (
+            <TarjetaCromo
+              key={cromo.id}
+              heroe={cromo}
+              mundo={{
+                ...mundo,
+                color: cromo.ilustracion?.colorBase ?? mundo.color,
+              }}
+              en={en}
+              textos={textos}
+              onClick={() => abrirCromo(cromo, mundo)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <DialogoDetalle
+        detalle={detalle}
+        textos={textos}
+        onCerrar={() => setDetalle(null)}
+      />
+    </LayoutPublico>
   );
 }
