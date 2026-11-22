@@ -223,7 +223,9 @@
   border-radius: var(--radio-l);
   box-shadow: 6px 6px 0 var(--borde-fuerte);
   transform: none;
-  cursor: default;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
 }
 .catalogo-grid .cromo-numero {
   position: absolute;
@@ -284,6 +286,10 @@
 }
 .catalogo-grid .cromo:hover {
   transform: none;
+}
+.catalogo-grid .cromo:focus-visible {
+  outline: 3px solid var(--marca-primario);
+  outline-offset: 4px;
 }
 .estado-catalogo,
 .catalogo-vacio {

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import LayoutPublico from "../components/LayoutPublico/LayoutPublico.jsx";
 import TarjetaMundo from "../components/TarjetaMundo/TarjetaMundo.jsx";
 import TarjetaCromo from "../components/TarjetaCromo/TarjetaCromo.jsx";
+import IlustracionCromo from "../components/IlustracionCromo/IlustracionCromo.jsx";
 import DialogoDetalle from "../components/DialogoDetalle/DialogoDetalle.jsx";
 import IconoMundo from "../components/IconoMundo/IconoMundo.jsx";
 import { usePreferencias } from "../context/PreferenciasContext.jsx";
@@ -26,6 +27,24 @@ function interpolar(plantilla, valores = {}) {
   );
 }
 
+function campoCromoPorIdioma(origen, campo, idioma) {
+  const alterno = idioma === "en" ? "En" : "Es";
+  const localizado =
+    origen?.traducciones?.[idioma]?.[campo] ??
+    origen?.translations?.[idioma]?.[campo] ??
+    origen?.[`${campo}${alterno}`] ??
+    origen?.[`${campo}_${idioma}`];
+  const valor = localizado ?? origen?.[campo];
+  if (valor && typeof valor === "object") {
+    return valor[idioma]
+      ?? valor[idioma === "en" ? "ingles" : "espanol"]
+      ?? valor.es
+      ?? valor.en
+      ?? valor;
+  }
+  return valor;
+}
+
 function obtenerMundo(respuesta) {
   return (
     respuesta?.mundo ?? respuesta?.datos?.mundo ?? respuesta?.datos ?? respuesta
@@ -48,6 +67,7 @@ export default function CatalogoMundo({ id }) {
   const [orden, setOrden] = useState("asc");
   const [busqueda, setBusqueda] = useState("");
   const [busquedaAbierta, setBusquedaAbierta] = useState(false);
+  const [cromoActivo, setCromoActivo] = useState(null);
   const t = textos;
   const cromos = Array.isArray(mundo?.cromos) ? mundo.cromos : [];
   const numeroMundo = Math.max(
@@ -96,6 +116,48 @@ export default function CatalogoMundo({ id }) {
     t[`rareza${rareza[0].toUpperCase()}${rareza.slice(1)}`] ?? rareza;
   const nombreTipo = (tipo) =>
     t[`tipo${tipo[0].toUpperCase()}${tipo.slice(1)}`] ?? tipo;
+  const nombreTipoDetalle = (tipo) =>
+    t[`detalleTipo${tipo[0].toUpperCase()}${tipo.slice(1)}`] ?? nombreTipo(tipo);
+  const abrirDetalleCromo = (cromo) => setCromoActivo(cromo);
+  const atributos = cromoActivo?.atributos ?? cromoActivo?.estadisticas ?? {};
+  const nombreCromo = campoCromoPorIdioma(cromoActivo, "nombre", idioma);
+  const descripcionCromo = campoCromoPorIdioma(cromoActivo, "descripcion", idioma);
+  const nombreMundoDetalle = campoCromoPorIdioma(cromoActivo, "mundoNombre", idioma)
+    ?? campoCromoPorIdioma(mundo, "nombre", idioma);
+  const slugMundoDetalle = String(
+    (typeof cromoActivo?.mundo === "object" ? cromoActivo.mundo.id : cromoActivo?.mundo)
+      ?? mundo?.slug
+      ?? mundo?.id
+      ?? "",
+  ).toLowerCase();
+  const poder = campoCromoPorIdioma(cromoActivo, "poder", idioma)
+    ?? campoCromoPorIdioma(cromoActivo, "habilidad", idioma)
+    ?? campoCromoPorIdioma(cromoActivo, "habilidadEspecial", idioma);
+  const poderNombre = typeof poder === "object"
+    ? campoCromoPorIdioma(poder, "nombre", idioma) ?? campoCromoPorIdioma(poder, "titulo", idioma)
+    : campoCromoPorIdioma(cromoActivo, "nombrePoder", idioma);
+  const poderDescripcion = typeof poder === "object"
+    ? campoCromoPorIdioma(poder, "descripcion", idioma) ?? campoCromoPorIdioma(poder, "efecto", idioma)
+    : poder ?? campoCromoPorIdioma(cromoActivo, "descripcionPoder", idioma);
+  const listaAtributos = [
+    ["fuerza", t.detalleFuerza],
+    ["velocidad", t.detalleVelocidad],
+    ["mente", t.detalleMente],
+    ["energia", t.detalleEnergia],
+  ].map(([clave, etiqueta]) => [etiqueta, atributos[clave] ?? atributos[clave[0].toUpperCase() + clave.slice(1)] ?? 0]);
+  const totalAtributos = listaAtributos.reduce(
+    (total, [, valor]) => total + Number(valor || 0),
+    0,
+  );
+  const indiceCromoActivo = visible.findIndex((cromo) => cromo.id === cromoActivo?.id);
+  const navegarCromo = (paso) => {
+    if (!visible.length) return;
+    setCromoActivo(visible[(indiceCromoActivo + paso + visible.length) % visible.length]);
+  };
+  const mundoCromoActivo = cromoActivo && {
+    ...mundo,
+    color: cromoActivo.ilustracion?.colorBase ?? mundo?.color,
+  };
 
   const inicio = t.catalogoInicio ?? t.inicio;
   const tituloMundos = t.catalogoMundosTitulo ?? t.mundos;
@@ -356,6 +418,7 @@ export default function CatalogoMundo({ id }) {
                   }}
                   en={idioma === "en"}
                   textos={t}
+                  onClick={() => abrirDetalleCromo(cromo)}
                 />
               ))}
             </div>
@@ -384,9 +447,39 @@ export default function CatalogoMundo({ id }) {
         </div>
       </section>
       <DialogoDetalle
-        detalle={cuentaDetalle}
+        detalle={cromoActivo ? {
+          tipo: "cromo",
+          cerrar: t.detalleCerrar,
+          contenido: (
+            <div className="ficha-cromo">
+              <div className="ficha-cromo__visual" style={{ "--color-cromo": mundoCromoActivo?.color }}>
+                <div className="ficha-cromo__carta">
+                  <span className="ficha-cromo__numero">{String(cromoActivo.numero).padStart(3, "0")}</span>
+                  <span className={`ficha-cromo__insignia ficha-cromo__insignia--${cromoActivo.rareza ?? "comun"}`} aria-label={nombreRareza(cromoActivo.rareza ?? "comun")}>
+                    <IconoMundo nombre={`rareza_${cromoActivo.rareza ?? "comun"}`} />
+                  </span>
+                  <IlustracionCromo mundo={mundoCromoActivo} holografico={cromoActivo.holografico === true} />
+                  <b>{nombreCromo}</b>
+                  <small>{nombreMundoDetalle} · {nombreTipoDetalle(cromoActivo.tipo ?? "heroe")}</small>
+                </div>
+              </div>
+              <div className="ficha-cromo__info">
+                <div className="ficha-cromo__etiquetas">
+                  <span className={`ficha-cromo__rareza ficha-cromo__rareza--${cromoActivo.rareza ?? "comun"}`}><IconoMundo nombre={`rareza_${cromoActivo.rareza ?? "comun"}`} />{nombreRareza(cromoActivo.rareza ?? "comun")}</span>
+                  <span className={`ficha-cromo__mundo ficha-cromo__mundo--${slugMundoDetalle}`}>{nombreMundoDetalle}</span><span>{nombreTipoDetalle(cromoActivo.tipo ?? "heroe")}</span>
+                </div>
+                <p className="ficha-cromo__codigo">{interpolar(t.detalleUbicacion, { id: typeof cromoActivo.id === "string" && cromoActivo.id.startsWith("CV-") ? cromoActivo.id : `CV-${String(cromoActivo.numero).padStart(3, "0")}`, mundo: nombreMundoDetalle, posicion: cromoActivo.posicion ?? cromoActivo.numero })}</p>
+                <h2 id="titulo-ficha-cromo">{nombreCromo}</h2>
+                {poderDescripcion && <div className="ficha-cromo__poder"><span className="ficha-cromo__poder-icono"><IconoMundo nombre="rayo" /></span><span className="ficha-cromo__poder-texto"><strong>{poderNombre ?? t.detallePoder}</strong><b>{poderDescripcion}</b></span></div>}
+                {descripcionCromo && <p className="ficha-cromo__descripcion">{descripcionCromo}</p>}
+                <section className="ficha-cromo__atributos"><header><strong>{t.detalleAtributos}</strong><span>{interpolar(t.detalleAtributosTotal, { total: totalAtributos })}</span></header>{listaAtributos.map(([etiqueta, valor]) => <div className="ficha-cromo__atributo" key={etiqueta}><b>{etiqueta}</b><span><i><i style={{ width: `${Math.min(100, Number(valor) / 100 * 100)}%` }} /></i><strong>{valor}</strong></span></div>)}</section>
+                <nav className="ficha-cromo__navegacion" aria-label={`${t.detalleAnterior} / ${t.detalleSiguiente}`}><button type="button" aria-label={t.detalleAnterior} onClick={() => navegarCromo(-1)}>‹ &nbsp;{visible[(indiceCromoActivo - 1 + visible.length) % visible.length]?.numero && `${String(visible[(indiceCromoActivo - 1 + visible.length) % visible.length].numero).padStart(3, "0")} ${visible[(indiceCromoActivo - 1 + visible.length) % visible.length].nombre}`}</button><button type="button" aria-label={t.detalleSiguiente} onClick={() => navegarCromo(1)}>{visible[(indiceCromoActivo + 1) % visible.length]?.numero && `${String(visible[(indiceCromoActivo + 1) % visible.length].numero).padStart(3, "0")} ${visible[(indiceCromoActivo + 1) % visible.length].nombre}`} &nbsp; ›</button></nav>
+              </div>
+            </div>
+          ),
+        } : cuentaDetalle}
         textos={t}
-        onCerrar={() => setCuentaDetalle(null)}
+        onCerrar={() => { setCromoActivo(null); setCuentaDetalle(null); }}
       />
     </LayoutPublico>
   );
