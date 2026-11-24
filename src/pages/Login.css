@@ -395,7 +395,7 @@
 
   .login-abanico .cromo-041 {
     display: block !important;
-    top: 15px;
+    top: var(--espacio-4);
     transform: translateX(-75%) rotate(-8deg);
     z-index: 1;
   }

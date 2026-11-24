@@ -22,7 +22,7 @@
   height: 44px;
   width: 44px;
   border: var(--borde-grosor) solid var(--borde-fuerte);
-  border-radius: 50%;
+  border-radius: var(--radio-pildora);
   background: var(--mundo);
   color: var(--texto-inverso);
 }

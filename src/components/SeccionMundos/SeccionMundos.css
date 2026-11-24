@@ -56,13 +56,13 @@
     grid-auto-flow: column;
     grid-template-columns: none;
     gap: var(--espacio-3);
-    width: calc(100% + 40px);
-    margin-inline: -20px;
-    margin-top: -8px;
+    width: calc(100% + var(--espacio-5) * 2);
+    margin-inline: calc(var(--espacio-5) * -1);
+    margin-top: calc(var(--espacio-2) * -1);
     overflow-x: auto;
     overscroll-behavior-inline: contain;
-    padding: 8px 20px calc(var(--espacio-2) + 8px);
-    scroll-padding-inline: 20px;
+    padding: var(--espacio-2) var(--espacio-5) calc(var(--espacio-2) + var(--espacio-2));
+    scroll-padding-inline: var(--espacio-5);
     box-sizing: border-box;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;

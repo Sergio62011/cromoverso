@@ -20,9 +20,9 @@
   padding: var(--espacio-2) var(--espacio-4);
   background: var(--marca-acento);
   color: var(--texto-principal);
-  border: 2px solid var(--texto-principal);
+  border: var(--borde-grosor) solid var(--texto-principal);
   border-radius: var(--radio-pildora);
-  box-shadow: 2px 2px 0 var(--texto-principal);
+  box-shadow: var(--sombra-pop-pequena);
   transform: rotate(-6deg);  white-space: nowrap;
 }
 @media (max-width: 1050px) {

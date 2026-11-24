@@ -11,7 +11,7 @@
   height: 36px;
   background: var(--marca-primario);
   color: var(--texto-inverso);
-  border-radius: 50%;
+  border-radius: var(--radio-pildora);
 }
 .emblema svg {
   width: 20px;

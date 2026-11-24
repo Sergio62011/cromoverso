@@ -72,8 +72,8 @@ select {
 .landing a:focus-visible,
 .landing input:focus-visible,
 .landing select:focus-visible {
-  outline: 3px solid var(--marca-primario);
-  outline-offset: 5px;
+  outline: var(--borde-grosor) solid var(--marca-primario);
+  outline-offset: var(--espacio-1);
 }
 .landing main:focus {
   outline: none;
@@ -89,19 +89,18 @@ select {
   --escala-texto: 1.3;
 }
 :root[data-accesibilidad-contraste="true"] {
-  --fondo-pagina: #fff;
-  --fondo-superficie: #fff;
-  --fondo-sutil: #eee;
-  --texto-principal: #000;
-  --texto-secundario: #111;
-  --texto-terciario: #222;
-  --texto-marca: #000;
-  --marca-primario: #000;
-  --marca-primario-hover: #222;
-  --marca-primario-suave: #ddd;
-  --borde-sutil: #444;
-  --borde-fuerte: #000;
-  --texto-inverso: #fff;
+  --fondo-pagina: var(--fondo-superficie);
+  --fondo-sutil: var(--fondo-pagina);
+  --texto-principal: var(--fondo-inverso);
+  --texto-secundario: var(--fondo-inverso);
+  --texto-terciario: var(--texto-secundario);
+  --texto-marca: var(--texto-principal);
+  --marca-primario: var(--texto-principal);
+  --marca-primario-hover: var(--texto-secundario);
+  --marca-primario-suave: var(--fondo-sutil);
+  --borde-sutil: var(--borde-fuerte);
+  --borde-fuerte: var(--texto-principal);
+  --texto-inverso: var(--fondo-superficie);
 }
 :root[data-accesibilidad-enlaces="true"] .landing a {
   text-decoration: underline;
@@ -130,7 +129,7 @@ select {
   align-items: center;
   justify-content: center;
   gap: var(--espacio-3);
-  border: 1px solid var(--borde-fuerte);
+  border: var(--borde-fino) solid var(--borde-fuerte);
   border-radius: var(--radio-pildora);
   font-weight: 700;
   font-size: calc(14px * var(--escala-texto, 1));
@@ -226,7 +225,7 @@ select {
   font-weight: 800;
 }
 .cromoverso .boton-home {
-  border: 2px solid var(--texto-principal);
+  border: var(--borde-grosor) solid var(--texto-principal);
   box-shadow: var(--sombra-pop-pequena);
 }
 @media (max-width: 640px) {

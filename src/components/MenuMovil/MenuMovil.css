@@ -10,7 +10,7 @@
     background: var(--transparente);
     color: var(--texto-principal);
     border: var(--borde-grosor) solid var(--borde-fuerte);
-    border-radius: 50%;
+    border-radius: var(--radio-pildora);
   }
 }
 
