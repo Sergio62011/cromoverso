@@ -690,6 +690,27 @@
     background: var(--fondo-superficie);
   }
 
+  .botones-fila {
+    order: 3;
+    flex: 0 0 auto;
+    width: calc(100% + 2 * var(--espacio-4));
+    margin: 0 calc(var(--espacio-4) * -1);
+    padding: var(--espacio-3) var(--espacio-4) calc(var(--espacio-3) + env(safe-area-inset-bottom));
+    border-top: var(--borde-grosor) solid var(--borde-fuerte);
+    background: var(--fondo-superficie);
+    box-sizing: border-box;
+    gap: var(--espacio-2);
+  }
+
+  .botones-fila > .ingresar-home,
+  .botones-fila > .boton-home {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 36px;
+    min-height: 36px;
+    padding-inline: var(--espacio-2);
+  }
+
   .perfil-cabecera__pie-movil .perfil-cabecera__identidad {
     min-width: 0;
     padding: 0;
