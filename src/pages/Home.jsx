@@ -10,8 +10,6 @@ import { useTextos } from "../hooks/useTextos.js";
 import { useMundos } from "../hooks/useMundos.js";
 import { useCromosDestacados } from "../hooks/useCromosDestacados.js";
 import { useRecurso } from "../hooks/useRecurso.js";
-import IconoMundo from "../components/IconoMundo/IconoMundo.jsx";
-import TarjetaCromo from "../components/TarjetaCromo/TarjetaCromo.jsx";
 
 function obtenerMundo(respuesta) {
   return (
@@ -84,28 +82,7 @@ export default function Home() {
       />
       <SeccionMundos mundos={mundos} textos={textos} />
 
-      <section
-        id="legendarios"
-        className="ancho-home"
-        style={{ marginTop: "4rem" }}
-      >
-        <h2 className="titular-h2">Legendarios</h2>
-        <div className="catalogo-grid" style={{ marginTop: "2rem" }}>
-          {legendarios.map((cromo) => (
-            <TarjetaCromo
-              key={cromo.id}
-              heroe={cromo}
-              mundo={{
-                ...mundo,
-                color: cromo.ilustracion?.colorBase ?? mundo.color,
-              }}
-              en={en}
-              textos={textos}
-              onClick={() => abrirCromo(cromo, mundo)}
-            />
-          ))}
-        </div>
-      </section>
+      
 
       <DialogoDetalle
         detalle={detalle}
