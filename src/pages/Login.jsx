@@ -88,7 +88,7 @@ export default function Login() {
         error instanceof TypeError ||
         error.estado >= 500 ||
         !navigator.onLine ||
-        /network|fetch|conexión|conectar/.test(detalle);
+        /network|fetch|conexión|conectar|tardó demasiado/.test(detalle);
 
       if (credencialesIncorrectas) {
         setTipoError("credenciales");

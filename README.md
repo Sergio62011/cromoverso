@@ -11,6 +11,8 @@ npm ci
 npm run dev
 ```
 
+Configura la URL de la API en `.env` antes de iniciar el proyecto. Puedes copiar `.env.example` y ajustar `VITE_API_URL` si usas otra instancia.
+
 Abre la dirección que muestre Vite. Cada proyecto sirve su home en `/`.
 
 ```sh
@@ -69,7 +71,7 @@ Los estilos están separados por responsabilidad, pero usan las clases y los tok
 
 El home carga los mundos desde `GET /mundos`. Cada mundo abre su catálogo en `/mundos/{id}`, que carga sus cromos y datos desde `GET /mundos/{id}`. Los textos de interfaz se cargan con `GET /textos?idioma=es` o `GET /textos?idioma=en`; los catálogos locales son respaldo si no se puede consultar la API.
 
-API configurada: `https://yanethm-cromoverso-api.fly.dev/api/v1`.
+La URL base se lee desde `VITE_API_URL` en el entorno de Vite. Las solicitudes se cancelan al desmontar el componente y tienen un límite de espera de 15 segundos.
 
 El endpoint de textos usado por el home es `GET /textos?idioma=es` o `GET /textos?idioma=en`.
 
