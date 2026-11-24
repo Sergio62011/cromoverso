@@ -49,7 +49,7 @@ export default function Footer({
               {t.terminos}
             </button>
             <button className="cuerpo-p" onClick={() => onCuenta("registro")}>
-              {t.accesibilidad}
+              {t.enlaceAccesibilidad ?? t.declaracionAccesibilidad ?? t.accesibilidad}
             </button>
           </div>
         </div>

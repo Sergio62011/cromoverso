@@ -57,7 +57,7 @@ const ALIAS_HOME = {
   cuenta: "footer.columnas.cuenta.titulo",
   legal: "footer.columnas.legal.titulo",
   terminos: "footer.columnas.legal.enlaces.terminos",
-  accesibilidad: "footer.columnas.legal.enlaces.accesibilidad",
+  enlaceAccesibilidad: "footer.columnas.legal.enlaces.accesibilidad",
   derechos: "footer.legal.derechos",
   cookies: "cookies.preferencias.titulo",
   banner: "cookies.banner.titulo",

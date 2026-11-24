@@ -81,6 +81,44 @@ select {
 .landing [id] {
   scroll-margin-top: var(--espacio-5);
 }
+
+:root[data-accesibilidad-texto="grande"] {
+  --escala-texto: 1.15;
+}
+:root[data-accesibilidad-texto="muy-grande"] {
+  --escala-texto: 1.3;
+}
+:root[data-accesibilidad-contraste="true"] {
+  --fondo-pagina: #fff;
+  --fondo-superficie: #fff;
+  --fondo-sutil: #eee;
+  --texto-principal: #000;
+  --texto-secundario: #111;
+  --texto-terciario: #222;
+  --texto-marca: #000;
+  --marca-primario: #000;
+  --marca-primario-hover: #222;
+  --marca-primario-suave: #ddd;
+  --borde-sutil: #444;
+  --borde-fuerte: #000;
+  --texto-inverso: #fff;
+}
+:root[data-accesibilidad-enlaces="true"] .landing a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+:root[data-accesibilidad-fuente="true"] .landing,
+:root[data-accesibilidad-fuente="true"] .landing * {
+  font-family: Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.035em;
+}
+:root[data-accesibilidad-movimiento="true"] *,
+:root[data-accesibilidad-movimiento="true"] *::before,
+:root[data-accesibilidad-movimiento="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
 .ancho-home {
   width: min(1280px, calc(100% - 80px));
   margin-inline: auto;
