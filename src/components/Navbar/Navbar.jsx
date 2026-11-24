@@ -3,6 +3,7 @@ import Marca from "../Marca/Marca.jsx";
 import MenuMovil from "../MenuMovil/MenuMovil.jsx";
 import SelectorIdioma from "../SelectorIdioma/SelectorIdioma.jsx";
 import IconoMundo from "../IconoMundo/IconoMundo.jsx";
+import { consultar } from "../../services/api.js";
 import { interfaz } from "../../data/interfaz.js";
 import "./Navbar.css";
 export default function Navbar({
@@ -25,12 +26,50 @@ export default function Navbar({
   const [fuenteFacil, setFuenteFacil] = useState(false);
   const [declaracionAbierta, setDeclaracionAbierta] = useState(false);
   const [esMovil, setEsMovil] = useState(false);
+  const [usuario, setUsuario] = useState(null);
+  const [perfilAbierto, setPerfilAbierto] = useState(false);
   const boton = useRef(null);
   const botonAccesibilidad = useRef(null);
+  const perfilRef = useRef(null);
   const id = useId();
   const idAccesibilidad = useId();
   const t = textos ?? interfaz[idioma];
   const estaEnMundo = /^\/mundos\/[^/]+\/?$/.test(window.location.pathname);
+
+  useEffect(() => {
+    if (!localStorage.getItem("cromoverso_token")) return;
+    let activo = true;
+    consultar("/sesion")
+      .then((datos) => {
+        if (activo) setUsuario(datos.usuario ?? datos.datos?.usuario ?? null);
+      })
+      .catch((error) => {
+        if (activo && (error.estado === 401 || error.estado === 403)) {
+          localStorage.removeItem("cromoverso_token");
+          setUsuario(null);
+        }
+      });
+    return () => { activo = false; };
+  }, []);
+
+  async function cerrarSesion() {
+    try {
+      if (localStorage.getItem("cromoverso_token")) {
+        await consultar("/sesion", { method: "DELETE" });
+      }
+    } catch {
+      // La sesión local se cierra aunque la API no esté disponible.
+    } finally {
+      localStorage.removeItem("cromoverso_token");
+      setUsuario(null);
+      setPerfilAbierto(false);
+      setAbierto(false);
+    }
+  }
+
+  const nombreUsuario = usuario?.nombre ?? usuario?.alias ?? usuario?.correo ?? "";
+  const inicialesUsuario = nombreUsuario
+    .split(/[\s._-]+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]).join("").toUpperCase();
 
   useEffect(() => {
     const debeBloquear =
@@ -55,6 +94,15 @@ export default function Navbar({
     consulta.addEventListener("change", actualizarVista);
     return () => consulta.removeEventListener("change", actualizarVista);
   }, []);
+
+  useEffect(() => {
+    if (!perfilAbierto) return undefined;
+    function cerrarAlHacerClicFuera(evento) {
+      if (!perfilRef.current?.contains(evento.target)) setPerfilAbierto(false);
+    }
+    document.addEventListener("pointerdown", cerrarAlHacerClicFuera);
+    return () => document.removeEventListener("pointerdown", cerrarAlHacerClicFuera);
+  }, [perfilAbierto]);
 
   useEffect(() => {
     const raiz = document.documentElement;
@@ -99,9 +147,9 @@ export default function Navbar({
           tipo={tipo}
           ariaLabel={t.ariaMarca}
         />
-        <button className="ingreso-movil cuerpo-p-fuerte" onClick={() => onCuenta("ingresar")}>
+        {!usuario && <button className="ingreso-movil cuerpo-p-fuerte" onClick={() => onCuenta("ingresar")}>
           {t.ingresar}
-        </button>
+        </button>}
         <MenuMovil
           abierto={abierto}
           onAlternar={() => setAbierto((valor) => !valor)}
@@ -155,6 +203,25 @@ export default function Navbar({
                 etiqueta={t.ariaIdioma ?? t.idioma}
               />
             </div>
+            {usuario && <div className="perfil-cabecera" ref={perfilRef}>
+              <button
+                className="perfil-cabecera__avatar"
+                type="button"
+                aria-label={t.menuCuenta}
+                aria-expanded={perfilAbierto}
+                aria-controls="menu-perfil"
+                onClick={() => setPerfilAbierto((abierto) => !abierto)}
+              >{inicialesUsuario}</button>
+              {perfilAbierto && <section className="perfil-cabecera__menu" id="menu-perfil" aria-label={t.menuCuenta}>
+                <div className="perfil-cabecera__identidad">
+                  <span className="perfil-cabecera__iniciales" aria-hidden="true">{inicialesUsuario}</span>
+                  <div><strong>{nombreUsuario}</strong><span>{usuario.correo}</span></div>
+                </div>
+                <button className="perfil-cabecera__salir" type="button" onClick={cerrarSesion}>
+                  <IconoMundo nombre="salir" />{t.cerrarSesion}
+                </button>
+              </section>}
+            </div>}
             <div className="accesibilidad">
               <button
                 ref={botonAccesibilidad}
@@ -309,7 +376,7 @@ export default function Navbar({
                 </div>
               )}
             </div>
-            <div className="botones-fila">
+            {!usuario && <div className="botones-fila">
               <button
                 className="ingresar-home cuerpo-p-fuerte"
                 onClick={() => onCuenta("ingresar")}
@@ -322,7 +389,16 @@ export default function Navbar({
               >
                 {t.registro}
               </button>
-            </div>
+            </div>}
+            {usuario && <div className="perfil-cabecera__pie-movil">
+              <div className="perfil-cabecera__identidad">
+                <span className="perfil-cabecera__iniciales" aria-hidden="true">{inicialesUsuario}</span>
+                <div><strong>{nombreUsuario}</strong><span>{usuario.correo}</span></div>
+              </div>
+              <button className="perfil-cabecera__salir perfil-cabecera__salir--movil" type="button" onClick={cerrarSesion}>
+                <IconoMundo nombre="salir" />{t.cerrarSesion}
+              </button>
+            </div>}
           </div>
         </nav>
       </div>
