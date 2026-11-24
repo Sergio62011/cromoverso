@@ -43,6 +43,13 @@ const TRAZOS = {
     </>
   ),
   cerrar: <path d="m6 6 12 12M6 18 18 6" />,
+  salir: (
+    <>
+      <path d="M10 17l5-5-5-5" />
+      <path d="M15 12H3" />
+      <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6" />
+    </>
+  ),
   favoritos: (
     <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" />
   ),
@@ -145,7 +152,10 @@ const TRAZOS = {
   rareza_comun: <circle cx="12" cy="12" r="5" />,
   rareza_rara: <path d="m12 3 9 9-9 9-9-9 9-9Z" strokeLinejoin="miter" />,
   rareza_epica: (
-    <path d="m12 2.5 2.9 6.1 6.7.9-4.9 4.6 1.2 6.7-5.9-3.3-5.9 3.3 1.2-6.7-4.9-4.6 6.7-.9L12 2.5Z" strokeLinejoin="miter" />
+    <path
+      d="m12 2.5 2.9 6.1 6.7.9-4.9 4.6 1.2 6.7-5.9-3.3-5.9 3.3 1.2-6.7-4.9-4.6 6.7-.9L12 2.5Z"
+      strokeLinejoin="miter"
+    />
   ),
   rareza_legendaria: (
     <svg
@@ -214,6 +224,19 @@ const TRAZOS = {
         strokeLinejoin="round"
       />
     </svg>
+  ),
+  cargando: <path d="M21 12a9 9 0 0 0-9-9" />,
+  alerta: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v6m0 4h.01" />
+    </>
+  ),
+  advertencia: (
+    <>
+      <path d="m12 3 10 18H2L12 3Z" />
+      <path d="M12 9v5m0 3h.01" />
+    </>
   ),
 };
 
