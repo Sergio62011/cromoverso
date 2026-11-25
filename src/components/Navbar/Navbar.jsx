@@ -37,15 +37,13 @@ export default function Navbar({
   const estaEnMundo = /^\/mundos\/[^/]+\/?$/.test(window.location.pathname);
 
   useEffect(() => {
-    if (!localStorage.getItem("cromoverso_token")) return;
     let activo = true;
-    consultar("/sesion")
+    consultar("/sesion", { redirigirSiNoAutenticado: false })
       .then((datos) => {
         if (activo) setUsuario(datos.usuario ?? datos.datos?.usuario ?? null);
       })
       .catch((error) => {
         if (activo && (error.estado === 401 || error.estado === 403)) {
-          localStorage.removeItem("cromoverso_token");
           setUsuario(null);
         }
       });
@@ -54,13 +52,13 @@ export default function Navbar({
 
   async function cerrarSesion() {
     try {
-      if (localStorage.getItem("cromoverso_token")) {
-        await consultar("/sesion", { method: "DELETE" });
-      }
+      await consultar("/sesion", {
+        method: "DELETE",
+        redirigirSiNoAutenticado: false,
+      });
     } catch {
       // La sesión local se cierra aunque la API no esté disponible.
     } finally {
-      localStorage.removeItem("cromoverso_token");
       setUsuario(null);
       setPerfilAbierto(false);
       setAbierto(false);

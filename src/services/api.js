@@ -1,7 +1,10 @@
 const TIEMPO_LIMITE = 15000;
 const URL_API = import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "");
 
-export async function consultar(ruta, { signal, method = "GET", body } = {}) {
+export async function consultar(
+  ruta,
+  { signal, method = "GET", body, redirigirSiNoAutenticado = true } = {},
+) {
   if (!URL_API) throw new Error("Falta configurar URL de la API en VITE_API_URL.");
 
   const controlador = new AbortController();
@@ -15,13 +18,12 @@ export async function consultar(ruta, { signal, method = "GET", body } = {}) {
   }, TIEMPO_LIMITE);
 
   try {
-    const token = localStorage.getItem("cromoverso_token");
     const respuesta = await fetch(`${URL_API}${ruta}`, {
       method,
       signal: controlador.signal,
+      credentials: "include",
       headers: {
         Accept: "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...(body ? { "Content-Type": "application/json" } : {}),
       },
       ...(body ? { body: JSON.stringify(body) } : {}),
@@ -32,6 +34,20 @@ export async function consultar(ruta, { signal, method = "GET", body } = {}) {
       error.estado = respuesta.status;
       error.codigo = datos.error?.codigo;
       error.campos = datos.error?.campos;
+      error.retryAfter = respuesta.headers.get("Retry-After");
+      const noAutenticado =
+        respuesta.status === 401 &&
+        String(error.codigo || "").toLowerCase() === "no_autenticado";
+      const esConsultaSesion = /^\/?sesion(?:\?|$)/.test(ruta);
+      const yaEstaEnLogin = /^\/login\/?$/.test(window.location.pathname);
+      if (
+        noAutenticado &&
+        redirigirSiNoAutenticado &&
+        !esConsultaSesion &&
+        !yaEstaEnLogin
+      ) {
+        window.location.assign("/login");
+      }
       throw error;
     }
     return datos;

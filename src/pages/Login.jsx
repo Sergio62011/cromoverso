@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AbanicoCromos from "../components/AbanicoCromos/AbanicoCromos.jsx";
 import IconoMundo from "../components/IconoMundo/IconoMundo.jsx";
 import Marca from "../components/Marca/Marca.jsx";
@@ -17,10 +17,30 @@ export default function Login() {
   const [mantener, setMantener] = useState(true);
   const [ver, setVer] = useState(false);
   const [cargando, setCargando] = useState(false);
+  const [segundosBloqueo, setSegundosBloqueo] = useState(0);
   const [mensaje, setMensaje] = useState("");
   const [tipoError, setTipoError] = useState("");
   const [errores, setErrores] = useState({});
   const [intento, setIntento] = useState(false);
+  const correoRef = useRef(null);
+  const contrasenaRef = useRef(null);
+  const campoPendienteDeEnfocar = useRef(null);
+  const formularioBloqueado = cargando || segundosBloqueo > 0;
+
+  useEffect(() => {
+    if (segundosBloqueo <= 0) return undefined;
+    const intervalo = setInterval(() => {
+      setSegundosBloqueo((segundos) => Math.max(0, segundos - 1));
+    }, 1000);
+    return () => clearInterval(intervalo);
+  }, [segundosBloqueo > 0]);
+
+  useEffect(() => {
+    const campo = campoPendienteDeEnfocar.current;
+    if (!campo) return;
+    campoPendienteDeEnfocar.current = null;
+    (campo === "correo" ? correoRef : contrasenaRef).current?.focus();
+  }, [errores]);
 
   function validar(correoValor, contrasenaValor) {
     return {
@@ -54,10 +74,14 @@ export default function Login() {
 
   async function ingresar(evento) {
     evento.preventDefault();
+    if (formularioBloqueado) return;
     setIntento(true);
     const erroresValidacion = validar(correo, contrasena);
     setErrores(erroresValidacion);
     if (erroresValidacion.correo || erroresValidacion.contrasena) {
+      campoPendienteDeEnfocar.current = erroresValidacion.correo
+        ? "correo"
+        : "contrasena";
       setMensaje("Revisa los campos marcados");
       setTipoError("validacion");
       return;
@@ -70,8 +94,6 @@ export default function Login() {
         method: "POST",
         body: { correo, clave: contrasena },
       });
-      const token = datos.token ?? datos.datos?.token;
-      if (token) localStorage.setItem("cromoverso_token", token);
       window.location.assign(
         datos.redireccion ?? datos.datos?.redireccion ?? "/",
       );
@@ -89,8 +111,22 @@ export default function Login() {
         error.estado >= 500 ||
         !navigator.onLine ||
         /network|fetch|conexión|conectar|tardó demasiado/.test(detalle);
+      const demasiadasPeticiones =
+        error.estado === 429 || codigo === "demasiadas_peticiones";
 
-      if (credencialesIncorrectas) {
+      if (demasiadasPeticiones) {
+        const valorRetryAfter = error.retryAfter?.trim();
+        const segundosHeader = Number(valorRetryAfter);
+        const fechaRetry = Date.parse(valorRetryAfter || "");
+        const segundos = Number.isFinite(segundosHeader) && valorRetryAfter !== ""
+          ? Math.max(0, Math.ceil(segundosHeader))
+          : Number.isFinite(fechaRetry)
+            ? Math.max(0, Math.ceil((fechaRetry - Date.now()) / 1000))
+            : 1;
+        setSegundosBloqueo(segundos);
+        setTipoError("limite");
+        setMensaje("Demasiadas solicitudes. Espera antes de volver a intentarlo.");
+      } else if (credencialesIncorrectas) {
         setTipoError("credenciales");
         setMensaje("Correo o contraseña incorrectos");
       } else if (errorRed) {
@@ -182,6 +218,13 @@ export default function Login() {
                     </span>
                   )}
                   {tipoError === "general" && <span>{mensaje}</span>}
+                  {tipoError === "limite" && (
+                    <span>
+                      {segundosBloqueo > 0
+                        ? `Podrás intentarlo de nuevo en ${segundosBloqueo} ${segundosBloqueo === 1 ? "segundo" : "segundos"}.`
+                        : "Ya puedes intentarlo de nuevo."}
+                    </span>
+                  )}
                 </div>
               </div>
             )}
@@ -189,10 +232,12 @@ export default function Login() {
               Correo electrónico
             </label>
             <input
+              ref={correoRef}
               className={errores.correo ? "tiene-error" : ""}
               id="login-correo"
               type="email"
               autoComplete="email"
+              disabled={formularioBloqueado}
               aria-invalid={Boolean(errores.correo)}
               aria-describedby={errores.correo ? "error-correo" : undefined}
               value={correo}
@@ -210,10 +255,12 @@ export default function Login() {
             </label>
             <div className="login-campo-contrasena">
               <input
+                ref={contrasenaRef}
                 className={errores.contrasena ? "tiene-error" : ""}
                 id="login-contrasena"
                 type={ver ? "text" : "password"}
                 autoComplete="current-password"
+                disabled={formularioBloqueado}
                 aria-invalid={Boolean(errores.contrasena)}
                 aria-describedby={
                   errores.contrasena ? "error-contrasena" : undefined
@@ -227,6 +274,7 @@ export default function Login() {
                 className="login-ver"
                 aria-label={ver ? "Ocultar contraseña" : "Mostrar contraseña"}
                 aria-pressed={ver}
+                disabled={formularioBloqueado}
                 onClick={() => setVer(!ver)}
               >
                 <IconoMundo nombre={ver ? "ojo_oculto" : "ojo"} />
@@ -243,6 +291,7 @@ export default function Login() {
                 <input
                   type="checkbox"
                   checked={mantener}
+                  disabled={formularioBloqueado}
                   onChange={(e) => setMantener(e.target.checked)}
                 />{" "}
                 Mantener la sesión iniciada
@@ -252,13 +301,15 @@ export default function Login() {
             <button
               className="login-enviar boton-home primario"
               type="submit"
-              disabled={cargando}
-              aria-busy={cargando}
+              disabled={formularioBloqueado}
+              aria-busy={formularioBloqueado}
             >
               {cargando && <IconoMundo nombre="cargando" />}
               {cargando
                 ? "Ingresando…"
-                : tipoError === "conexion"
+                : segundosBloqueo > 0
+                  ? `Espera ${segundosBloqueo} s`
+                  : tipoError === "conexion"
                   ? "Reintentar"
                   : "Ingresar"}
             </button>
