@@ -304,9 +304,7 @@ export default function CatalogoMundo({ id }) {
                     style={{ backgroundColor: item.color }}
                   />
                   <span>{item.nombre}</span>
-                  <small>
-                    {textoCantidadCromos(item.totalCromos ?? 20)}
-                  </small>
+                  <small>{textoCantidadCromos(item.totalCromos ?? 20)}</small>
                   {item.id === id && (
                     <em>
                       {leer(textosCatalogo, "mundos.aria.paginaActual") ??
@@ -425,13 +423,16 @@ export default function CatalogoMundo({ id }) {
           )}
           {mundo && visible.length === 0 && (
             <div className="catalogo-vacio">
+              <div className="imagen-sustentacion">
+                <IconoMundo nombre="sustentacion" />
+              </div>
               <h2>
                 {leer(textosCatalogo, "vacio.titulo") ??
-                  "Ningún cromo coincide con estos filtros"}
+                  "No hay nada por aquí todavía."}
               </h2>
               <p>
                 {leer(textosCatalogo, "vacio.texto") ??
-                  "Prueba con otra rareza u otro tipo."}
+                  "0 cromos con estos filtros"}
               </p>
               <button
                 className="boton-home secundario"
@@ -447,39 +448,141 @@ export default function CatalogoMundo({ id }) {
         </div>
       </section>
       <DialogoDetalle
-        detalle={cromoActivo ? {
-          tipo: "cromo",
-          cerrar: t.detalleCerrar,
-          contenido: (
-            <div className="ficha-cromo">
-              <div className="ficha-cromo__visual" style={{ "--color-cromo": mundoCromoActivo?.color }}>
-                <div className="ficha-cromo__carta">
-                  <span className="ficha-cromo__numero">{String(cromoActivo.numero).padStart(3, "0")}</span>
-                  <span className={`ficha-cromo__insignia ficha-cromo__insignia--${cromoActivo.rareza ?? "comun"}`} aria-label={nombreRareza(cromoActivo.rareza ?? "comun")}>
-                    <IconoMundo nombre={`rareza_${cromoActivo.rareza ?? "comun"}`} />
-                  </span>
-                  <IlustracionCromo mundo={mundoCromoActivo} holografico={cromoActivo.holografico === true} />
-                  <b>{nombreCromo}</b>
-                  <small>{nombreMundoDetalle} · {nombreTipoDetalle(cromoActivo.tipo ?? "heroe")}</small>
-                </div>
-              </div>
-              <div className="ficha-cromo__info">
-                <div className="ficha-cromo__etiquetas">
-                  <span className={`ficha-cromo__rareza ficha-cromo__rareza--${cromoActivo.rareza ?? "comun"}`}><IconoMundo nombre={`rareza_${cromoActivo.rareza ?? "comun"}`} />{nombreRareza(cromoActivo.rareza ?? "comun")}</span>
-                  <span className={`ficha-cromo__mundo ficha-cromo__mundo--${slugMundoDetalle}`}>{nombreMundoDetalle}</span><span>{nombreTipoDetalle(cromoActivo.tipo ?? "heroe")}</span>
-                </div>
-                <p className="ficha-cromo__codigo">{interpolar(t.detalleUbicacion, { id: typeof cromoActivo.id === "string" && cromoActivo.id.startsWith("CV-") ? cromoActivo.id : `CV-${String(cromoActivo.numero).padStart(3, "0")}`, mundo: nombreMundoDetalle, posicion: cromoActivo.posicion ?? cromoActivo.numero })}</p>
-                <h2 id="titulo-ficha-cromo">{nombreCromo}</h2>
-                {poderDescripcion && <div className="ficha-cromo__poder"><span className="ficha-cromo__poder-icono"><IconoMundo nombre="rayo" /></span><span className="ficha-cromo__poder-texto"><strong>{poderNombre ?? t.detallePoder}</strong><b>{poderDescripcion}</b></span></div>}
-                {descripcionCromo && <p className="ficha-cromo__descripcion">{descripcionCromo}</p>}
-                <section className="ficha-cromo__atributos"><header><strong>{t.detalleAtributos}</strong><span>{interpolar(t.detalleAtributosTotal, { total: totalAtributos })}</span></header>{listaAtributos.map(([etiqueta, valor]) => <div className="ficha-cromo__atributo" key={etiqueta}><b>{etiqueta}</b><span><i><i style={{ width: `${Math.min(100, Number(valor) / 100 * 100)}%` }} /></i><strong>{valor}</strong></span></div>)}</section>
-                <nav className="ficha-cromo__navegacion" aria-label={`${t.detalleAnterior} / ${t.detalleSiguiente}`}><button type="button" aria-label={t.detalleAnterior} onClick={() => navegarCromo(-1)}>‹ &nbsp;{visible[(indiceCromoActivo - 1 + visible.length) % visible.length]?.numero && `${String(visible[(indiceCromoActivo - 1 + visible.length) % visible.length].numero).padStart(3, "0")} ${visible[(indiceCromoActivo - 1 + visible.length) % visible.length].nombre}`}</button><button type="button" aria-label={t.detalleSiguiente} onClick={() => navegarCromo(1)}>{visible[(indiceCromoActivo + 1) % visible.length]?.numero && `${String(visible[(indiceCromoActivo + 1) % visible.length].numero).padStart(3, "0")} ${visible[(indiceCromoActivo + 1) % visible.length].nombre}`} &nbsp; ›</button></nav>
-              </div>
-            </div>
-          ),
-        } : cuentaDetalle}
+        detalle={
+          cromoActivo
+            ? {
+                tipo: "cromo",
+                cerrar: t.detalleCerrar,
+                contenido: (
+                  <div className="ficha-cromo">
+                    <div
+                      className="ficha-cromo__visual"
+                      style={{ "--color-cromo": mundoCromoActivo?.color }}
+                    >
+                      <TarjetaCromo
+                        key={cromoActivo.id}
+                        heroe={cromoActivo}
+                        mundo={{
+                          ...mundo,
+                          color:
+                            cromoActivo.ilustracion?.colorBase ?? mundo.color,
+                        }}
+                        en={idioma === "en"}
+                        textos={t}
+                        onClick={() => abrirDetalleCromo(cromoActivo)}
+                        tamano="grande"
+                      />
+                    </div>
+                    <div className="ficha-cromo__info">
+                      <div className="ficha-cromo__etiquetas">
+                        <span
+                          className={`ficha-cromo__rareza ficha-cromo__rareza--${cromoActivo.rareza ?? "comun"}`}
+                        >
+                          <IconoMundo
+                            nombre={`rareza_${cromoActivo.rareza ?? "comun"}`}
+                          />
+                          {nombreRareza(cromoActivo.rareza ?? "comun")}
+                        </span>
+                        <span
+                          className={`ficha-cromo__mundo ficha-cromo__mundo--${slugMundoDetalle}`}
+                        >
+                          {nombreMundoDetalle}
+                        </span>
+                        <span>
+                          {nombreTipoDetalle(cromoActivo.tipo ?? "heroe")}
+                        </span>
+                      </div>
+                      <p className="ficha-cromo__codigo">
+                        {interpolar(t.detalleUbicacion, {
+                          id:
+                            typeof cromoActivo.id === "string" &&
+                            cromoActivo.id.startsWith("CV-")
+                              ? cromoActivo.id
+                              : `CV-${String(cromoActivo.numero).padStart(3, "0")}`,
+                          mundo: nombreMundoDetalle,
+                          posicion: cromoActivo.posicion ?? cromoActivo.numero,
+                        })}
+                      </p>
+                      <h2 id="titulo-ficha-cromo">{nombreCromo}</h2>
+                      {poderDescripcion && (
+                        <div className="ficha-cromo__poder">
+                          <span className="ficha-cromo__poder-icono">
+                            <IconoMundo nombre="rayo" />
+                          </span>
+                          <span className="ficha-cromo__poder-texto">
+                            <strong>{poderNombre ?? t.detallePoder}</strong>
+                            <b>{poderDescripcion}</b>
+                          </span>
+                        </div>
+                      )}
+                      {descripcionCromo && (
+                        <p className="ficha-cromo__descripcion">
+                          {descripcionCromo}
+                        </p>
+                      )}
+                      <section className="ficha-cromo__atributos">
+                        <header>
+                          <strong>{t.detalleAtributos}</strong>
+                          <span>
+                            {interpolar(t.detalleAtributosTotal, {
+                              total: totalAtributos,
+                            })}
+                          </span>
+                        </header>
+                        {listaAtributos.map(([etiqueta, valor]) => (
+                          <div className="ficha-cromo__atributo" key={etiqueta}>
+                            <b>{etiqueta}</b>
+                            <span>
+                              <i>
+                                <i
+                                  style={{
+                                    width: `${Math.min(100, (Number(valor) / 100) * 100)}%`,
+                                  }}
+                                />
+                              </i>
+                              <strong>{valor}</strong>
+                            </span>
+                          </div>
+                        ))}
+                      </section>
+                      <nav
+                        className="ficha-cromo__navegacion"
+                        aria-label={`${t.detalleAnterior} / ${t.detalleSiguiente}`}
+                      >
+                        <button
+                          type="button"
+                          aria-label={t.detalleAnterior}
+                          onClick={() => navegarCromo(-1)}
+                        >
+                          ‹ &nbsp;
+                          {visible[
+                            (indiceCromoActivo - 1 + visible.length) %
+                              visible.length
+                          ]?.numero &&
+                            `${String(visible[(indiceCromoActivo - 1 + visible.length) % visible.length].numero).padStart(3, "0")} ${visible[(indiceCromoActivo - 1 + visible.length) % visible.length].nombre}`}
+                        </button>
+                        <button
+                          type="button"
+                          aria-label={t.detalleSiguiente}
+                          onClick={() => navegarCromo(1)}
+                        >
+                          {visible[(indiceCromoActivo + 1) % visible.length]
+                            ?.numero &&
+                            `${String(visible[(indiceCromoActivo + 1) % visible.length].numero).padStart(3, "0")} ${visible[(indiceCromoActivo + 1) % visible.length].nombre}`}{" "}
+                          &nbsp; ›
+                        </button>
+                      </nav>
+                    </div>
+                  </div>
+                ),
+              }
+            : cuentaDetalle
+        }
         textos={t}
-        onCerrar={() => { setCromoActivo(null); setCuentaDetalle(null); }}
+        onCerrar={() => {
+          setCromoActivo(null);
+          setCuentaDetalle(null);
+        }}
       />
     </LayoutPublico>
   );
