@@ -25,6 +25,7 @@ export default function TarjetaCromo({
   onClick,
   en = false,
   textos = {},
+  tamano = "normal",
 }) {
   const rareza = RAREZAS[heroe.rareza] ? heroe.rareza : "comun";
   const nombreRareza = `rareza${rareza.charAt(0).toUpperCase()}${rareza.slice(1)}`;
@@ -43,7 +44,7 @@ export default function TarjetaCromo({
 
   return (
     <Elemento
-      className={`cromo cromo-${numero}`}
+      className={`cromo cromo-${numero} cromo-${tamano}`}
       onClick={onClick}
       aria-label={onClick ? `${numero} ${heroe.nombre}, ${etiquetaRareza}, ${etiquetaTipo}` : undefined}
     >

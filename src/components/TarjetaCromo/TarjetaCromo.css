@@ -134,6 +134,17 @@
   transform: translateY(-12px);
   z-index: 2;
 }
+
+.cromo-grande {
+  width: 200px;
+  height: 300px;
+  border: 5px solid var(--borde-fuerte);
+}
+
+.cromo-grande .detalle-nota{
+  font-size: 1.2rem;
+}
+
 @media (max-width: 640px) {
   .cromo {
     padding: var(--espacio-1);
